@@ -1038,11 +1038,31 @@ function parseSuggest(t){ const v=pField(t,'SUGGEST'); return v?v.split('|').map
 function parseIntegrity(t){ const v=pField(t,'INTEGRITY'); return v?v.split(',').map(s=>s.trim()).filter(Boolean):[]; }
 function parseEntities(t){ const v=pField(t,'ENTITIES'); if(!v) return []; return v.split('|').map(e=>{const p=e.split(':');return{name:p[0]?.trim(),type:p[1]?.trim()||'org',amount:p[2]?.trim()||''};}).filter(e=>e.name); }
 
-// ── INSIGHT ──
+// ── INSIGHT — cached 24hrs in localStorage ──
 async function loadInsight(){
+  const CACHE_KEY='wip_insight';
+  const CACHE_TTL=24*60*60*1000; // 24 hours in ms
   const el=document.getElementById('insightBody');
-  try { const t=await callClaude(SYS_INSIGHT,[{role:'user',content:'Give me a live intelligence brief about global political money, war financing, or influence lobbying.'}],280); el.innerHTML=renderMd(t); }
-  catch(e){ el.innerHTML='The numbers tell a clear story: Since February 2022, <strong>$200B+</strong> in international war aid has flowed into Ukraine — while US defense contractors Raytheon, Lockheed, and General Dynamics collectively saw stock prices rise <strong>40%+</strong>. The line between humanitarian support and profitable armament is increasingly invisible.'; }
+
+  // Check cache first
+  try{
+    const cached=JSON.parse(localStorage.getItem(CACHE_KEY)||'null');
+    if(cached && (Date.now()-cached.ts < CACHE_TTL)){
+      el.innerHTML=renderMd(cached.text);
+      return; // serve from cache — no API call
+    }
+  }catch(e){}
+
+  // Cache miss or expired — fetch fresh from API
+  el.innerHTML='<div class="typing-dots"><span></span><span></span><span></span></div>';
+  try{
+    const txt=await callClaude(SYS_INSIGHT,[{role:'user',content:'Give me a live intelligence brief about global political money, war financing, or influence lobbying.'}],280);
+    el.innerHTML=renderMd(txt);
+    // Save to cache with timestamp
+    localStorage.setItem(CACHE_KEY,JSON.stringify({text:txt,ts:Date.now()}));
+  }catch(e){
+    el.innerHTML='The numbers tell a clear story: Since February 2022, <strong>$200B+</strong> in international war aid has flowed into Ukraine — while US defense contractors Raytheon, Lockheed, and General Dynamics collectively saw stock prices rise <strong>40%+</strong>. The line between humanitarian support and profitable armament is increasingly invisible.';
+  }
 }
 
 // ── DEMO ──
@@ -1306,7 +1326,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   ta.addEventListener('input',()=>{ ta.style.height='auto'; ta.style.height=Math.min(ta.scrollHeight,120)+'px'; });
   ta.addEventListener('keydown',e=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); sendMsg(); } });
   setTimeout(initGraph,120);
-  loadInsight();
+  loadInsight(); // safe — cached for 24hrs, only 1 API call per visitor per day
   updateFreeBadge();
 });
 </script>
