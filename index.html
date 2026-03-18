@@ -1247,14 +1247,29 @@ async function sendMsg(){
       ${suggests.length?`<div class="ai-suggestions">${suggests.map(s=>`<button class="sugg-btn" onclick="fillAndSend(this.dataset.q)" data-q="${s.replace(/"/g,'&quot;').replace(/'/g,'&#39;')}">↳ ${s}</button>`).join('')}</div>`:''}
       ${entities.length>1?buildMiniGraph(entities):''}`;
   } catch(e){
-    const is429=e.message.includes('429')||e.message.includes('Too Many');
-    aiW.querySelector('.bubble').innerHTML=`
-      <span style="color:${is429?'var(--orange)':'var(--red)'}">
-        ${is429
-          ? '⏳ Too many requests — Gemini free tier limit hit. Please wait 60 seconds and try again.'
-          : 'Investigation failed. Please try again in a moment.'}
-        <br><small style="color:var(--t3);font-size:10px">${e.message}</small>
-      </span>`;
+    const is429=e.message.includes('429')||e.message.includes('Too Many')||e.message.includes('Rate limit');
+    if(is429){
+      let secs=60;
+      const countId='cd_'+Date.now();
+      aiW.querySelector('.bubble').innerHTML=`<span style="color:var(--orange)">⏳ Too many requests — please wait <strong id="${countId}">${secs}s</strong> and your question will resend automatically.</span>`;
+      const iv=setInterval(()=>{
+        secs--;
+        const el=document.getElementById(countId);
+        if(el) el.textContent=secs+'s';
+        if(secs<=0){
+          clearInterval(iv);
+          // Auto retry
+          chatHistory.pop(); // remove failed user message
+          freeLeft++; // restore count
+          updateFreeBadge();
+          aiW.remove();
+          document.getElementById('chatInput').value=q;
+          sendMsg();
+        }
+      },1000);
+    } else {
+      aiW.querySelector('.bubble').innerHTML=`<span style="color:var(--red)">Investigation failed. Please try again.<br><small style="color:var(--t3)">${e.message}</small></span>`;
+    }
   }
 
   document.getElementById('sendBtn').disabled=false;
