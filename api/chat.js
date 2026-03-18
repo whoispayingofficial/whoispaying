@@ -1,5 +1,4 @@
 // api/chat.js — Vercel Serverless Function
-// Automatically available at /api/chat (no config needed)
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -9,7 +8,7 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  // Parse body — handle both string and object
+  // Parse body safely
   let body;
   try {
     body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
@@ -17,8 +16,8 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid JSON body' });
   }
 
-  if (!body?.messages || !Array.isArray(body.messages)) {
-    return res.status(400).json({ error: 'Missing messages array' });
+  if (!body?.messages || !Array.isArray(body.messages) || body.messages.length === 0) {
+    return res.status(400).json({ error: 'Missing or empty messages array' });
   }
 
   const provider = process.env.PROVIDER || 'gemini';
@@ -29,18 +28,33 @@ export default async function handler(req, res) {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) return res.status(500).json({ error: 'Missing GEMINI_API_KEY' });
 
-    const geminiMessages = body.messages.map(m => ({
-      role: m.role === 'assistant' ? 'model' : 'user',
-      parts: [{ text: m.content }]
-    }));
+    // Build contents array — Gemini requires strict user/model alternation
+    // Start with system prompt as first user message (only once)
+    const contents = [];
 
-    const contents = body.system
-      ? [
-          { role: 'user',  parts: [{ text: body.system }] },
-          { role: 'model', parts: [{ text: 'Understood. I will follow those instructions exactly.' }] },
-          ...geminiMessages
-        ]
-      : geminiMessages;
+    if (body.system) {
+      contents.push({ role: 'user',  parts: [{ text: body.system }] });
+      contents.push({ role: 'model', parts: [{ text: 'Understood.' }] });
+    }
+
+    // Add conversation messages — ensure strict alternation
+    for (const m of body.messages) {
+      const role = m.role === 'assistant' ? 'model' : 'user';
+      const lastRole = contents.length ? contents[contents.length - 1].role : null;
+
+      // If same role appears twice in a row, merge into previous
+      if (lastRole === role) {
+        const last = contents[contents.length - 1];
+        last.parts[0].text += '\n' + m.content;
+      } else {
+        contents.push({ role, parts: [{ text: m.content }] });
+      }
+    }
+
+    // Gemini requires the last message to be from 'user'
+    if (contents[contents.length - 1].role !== 'user') {
+      return res.status(400).json({ error: 'Last message must be from user' });
+    }
 
     try {
       const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
@@ -49,7 +63,10 @@ export default async function handler(req, res) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           contents,
-          generationConfig: { maxOutputTokens: maxTokens, temperature: 0.7 }
+          generationConfig: {
+            maxOutputTokens: maxTokens,
+            temperature: 0.7
+          }
         })
       });
 
@@ -59,7 +76,8 @@ export default async function handler(req, res) {
         return res.status(response.status).json({
           error: response.status === 429
             ? 'Rate limit hit — please wait 60 seconds and try again.'
-            : data.error?.message || 'Gemini API error'
+            : data.error?.message || 'Gemini API error',
+          raw: data
         });
       }
 
