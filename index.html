@@ -1202,7 +1202,14 @@ async function sendMsg(){
       ${suggests.length?`<div class="ai-suggestions">${suggests.map(s=>`<button class="sugg-btn" onclick="fillAndSend(this.dataset.q)" data-q="${s.replace(/"/g,'&quot;').replace(/'/g,'&#39;')}">↳ ${s}</button>`).join('')}</div>`:''}
       ${entities.length>1?buildMiniGraph(entities):''}`;
   } catch(e){
-    aiW.querySelector('.bubble').innerHTML=`<span style="color:var(--red)">Investigation failed. Check your API key.<br><small style="color:var(--t3)">${e.message}</small></span>`;
+    const is429=e.message.includes('429')||e.message.includes('Too Many');
+    aiW.querySelector('.bubble').innerHTML=`
+      <span style="color:${is429?'var(--orange)':'var(--red)'}">
+        ${is429
+          ? '⏳ Too many requests — Gemini free tier limit hit. Please wait 60 seconds and try again.'
+          : 'Investigation failed. Please try again in a moment.'}
+        <br><small style="color:var(--t3);font-size:10px">${e.message}</small>
+      </span>`;
   }
 
   document.getElementById('sendBtn').disabled=false;
