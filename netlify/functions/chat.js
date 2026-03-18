@@ -86,7 +86,11 @@ exports.handler = async (event) => {
       return {
         statusCode: res.status,
         headers: corsHeaders,
-        body: JSON.stringify({ error: data.error?.message || 'Gemini API error' })
+        body: JSON.stringify({
+          error: res.status === 429
+            ? 'Rate limit hit — Gemini free tier allows 15 requests/minute. Please wait and retry.'
+            : data.error?.message || 'Gemini API error'
+        })
       };
     }
 
