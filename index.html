@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>WhoIsPaying.com — Follow the Money. Expose the Power.</title>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3065529797261346" crossorigin="anonymous"></script>
+<style>
+:root{
+  --gold:#C9A84C;--gl:#F0D070;--gdim:rgba(201,168,76,0.09);--gbr:rgba(201,168,76,0.22);
+  --bg:#07070C;--bg2:#0C0C13;--bg3:#111118;--bg4:#17171F;--bg5:#1D1D26;
+  --b1:rgba(255,255,255,0.055);--b2:rgba(255,255,255,0.09);--b3:rgba(255,255,255,0.14);
+  --t1:#EDE8DF;--t2:#9A9288;--t3:#54504A;--t4:#2E2C28;
+  --green:#3DB878;--red:#D95555;--blue:#4A8FD4;--orange:#E07B39;
+  --vbg:rgba(61,184,120,.1);--vbr:rgba(61,184,120,.22);--vtx:#5DD49A;
+  --ebg:rgba(74,143,212,.1);--ebr:rgba(74,143,212,.22);--etx:#7AAEE8;
+  --ubg:rgba(201,168,76,.08);--ubr:rgba(201,168,76,.2);--utx:#C9A84C;
+  --nav-h:54px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--t1);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;line-height:1.75;overflow-x:hidden}
+h1,h2,h3{font-family:Georgia,serif;font-weight:500;letter-spacing:-2px}
+em{color:var(--gold);font-style:normal}
+a{color:var(--blue);text-decoration:none}
+button{cursor:pointer;font-family:inherit}
+.btn-gold{background:var(--gold);color:#07070C;border:none;padding:10px 20px;border-radius:7px;font-weight:700;font-size:13px;transition:background .2s;white-space:nowrap}
+.btn-gold:hover{background:var(--gl)}
+.btn-gold:active{transform:scale(.98)}
+.btn-ghost{background:transparent;color:var(--t2);border:1px solid var(--b2);padding:7px 13px;border-radius:7px;font-size:12px;transition:.2s}
+.btn-ghost:hover{border-color:var(--b3);color:var(--t1)}
+.btn-ghost:active{transform:scale(.97)}
+.tag-v{background:var(--vbg);border:1px solid var(--vbr);color:var(--vtx);font-family:'Courier New',monospace;font-size:9px;letter-spacing:1.5px;padding:2px 6px;border-radius:3px;white-space:nowrap;display:inline-block}
+.tag-e{background:var(--ebg);border:1px solid var(--ebr);color:var(--etx);font-family:'Courier New',monospace;font-size:9px;letter-spacing:1.5px;padding:2px 6px;border-radius:3px;white-space:nowrap;display:inline-block}
+.tag-u{background:var(--ubg);border:1px solid var(--ubr);color:var(--utx);font-family:'Courier New',monospace;font-size:9px;letter-spacing:1.5px;padding:2px 6px;border-radius:3px;white-space:nowrap;display:inline-block}
+.card{background:var(--bg3);border:1px solid var(--b2);border-radius:10px;padding:16px 18px;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);pointer-events:none}
+.label-sm{font-family:'Courier New',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+.label-dim{font-family:'Courier New',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--t3)}
+::-webkit-scrollbar{width:3px;height:3px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--b2);border-radius:2px}
+
+@keyframes pulse-ring{0%{transform:scale(.6);opacity:.8}100%{transform:scale(1.8);opacity:0}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── PAGES ── */
+.reason-chip{background:var(--bg4);border:1px solid var(--b2);color:var(--t2);font-size:11px;padding:5px 11px;border-radius:14px;cursor:pointer;transition:.2s;font-family:inherit}
+.reason-chip:hover{border-color:var(--b3);color:var(--t1)}
+.reason-chip.active{background:var(--gdim);border-color:var(--gbr);color:var(--gold)}
+
+/* ── NAV ── */
+#nav{position:sticky;top:0;z-index:100;height:var(--nav-h);background:rgba(7,7,12,.97);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--b1);display:flex;align-items:center;justify-content:space-between;padding:0 16px;gap:12px}
+.nav-logo{display:flex;align-items:center;gap:8px;font-family:Georgia,serif;font-size:16px;letter-spacing:-.5px;color:var(--t1);cursor:pointer;flex-shrink:0}
+.pulse-wrap{position:relative;width:16px;height:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pulse-dot{width:8px;height:8px;background:var(--green);border-radius:50%;position:relative;z-index:1}
+.pulse-ring{position:absolute;width:16px;height:16px;border-radius:50%;border:1.5px solid var(--green);animation:pulse-ring 2s ease-out infinite}
+.nav-links{display:flex;gap:20px}
+.nav-links a{font-family:'Courier New',monospace;font-size:10px;letter-spacing:1.5px;color:var(--t3);text-decoration:none;transition:.2s}
+.nav-links a:hover{color:var(--t2)}
+@media(max-width:640px){.nav-links{display:none}}
+.nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.live-count{font-size:12px;color:var(--t3);white-space:nowrap}
+.live-count strong{color:var(--green)}
+@media(max-width:400px){.live-count{display:none}}
+
+/* ── TICKER ── */
+#ticker{background:var(--bg2);border-bottom:1px solid var(--b1);padding:6px 0;display:flex;align-items:center;overflow:hidden}
+.ticker-label{padding:0 12px;font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--red);display:flex;align-items:center;gap:4px;white-space:nowrap;flex-shrink:0}
+.blink-dot{width:5px;height:5px;background:var(--red);border-radius:50%;animation:blink 1.5s infinite}
+.ticker-track{overflow:hidden;flex:1;mask-image:linear-gradient(90deg,transparent,black 5%,black 95%,transparent)}
+.ticker-inner{display:flex;gap:40px;animation:ticker 34s linear infinite;white-space:nowrap}
+.ticker-item{font-size:11px;color:var(--t2);cursor:pointer;transition:.2s;flex-shrink:0;padding:0 4px}
+.ticker-item:hover{color:var(--t1)}
+.ticker-item.hot{color:rgba(224,123,57,0.85)}
+
+/* ── HERO ── */
+#hero{max-width:860px;margin:0 auto;padding:44px 16px 28px;text-align:center}
+.eyebrow{display:inline-flex;align-items:center;gap:6px;background:var(--gdim);border:1px solid var(--gbr);border-radius:3px;padding:4px 10px;font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--gold);margin-bottom:18px}
+.eyebrow-dot{width:4px;height:4px;background:var(--gold);border-radius:50%;flex-shrink:0}
+#hero h1{font-size:clamp(32px,7vw,66px);line-height:1.0;margin-bottom:14px}
+.hero-sub{font-size:14px;color:var(--t2);max-width:420px;margin:0 auto 22px;line-height:1.7}
+.hero-cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+/* ── CRISIS BAND ── */
+#crisisBand{background:linear-gradient(90deg,rgba(217,85,85,0.06),rgba(201,168,76,0.04),rgba(217,85,85,0.06));border-top:1px solid rgba(217,85,85,0.18);border-bottom:1px solid rgba(217,85,85,0.18);padding:10px 16px;max-width:100%}
+.crisis-inner{max-width:760px;margin:0 auto;display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.crisis-eyebrow{display:flex;align-items:center;gap:6px;flex-shrink:0;padding-top:2px}
+.crisis-dot{width:7px;height:7px;background:var(--red);border-radius:50%;animation:blink 1.2s infinite;flex-shrink:0}
+.crisis-tag{font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--red);white-space:nowrap}
+.crisis-pills{display:flex;gap:7px;flex-wrap:wrap}
+.crisis-pill{background:rgba(217,85,85,0.08);border:1px solid rgba(217,85,85,0.2);border-radius:4px;padding:5px 10px;font-size:11px;color:var(--t1);cursor:pointer;transition:.2s;line-height:1.3}
+.crisis-pill:hover{background:rgba(217,85,85,0.14);border-color:rgba(217,85,85,0.35);color:#fff}
+.crisis-pill .c-label{font-family:'Courier New',monospace;font-size:7px;letter-spacing:1.5px;color:var(--red);display:block;margin-bottom:1px}
+
+/* ── INSIGHT / DEMO ── */
+#insightCard,#demoCard{max-width:760px;margin:0 auto 24px;padding:0 16px}
+.insight-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px}
+.insight-live{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--t3)}
+.green-dot{width:6px;height:6px;background:var(--green);border-radius:50%;flex-shrink:0;animation:blink 3s infinite}
+#insightBody{font-size:13px;color:var(--t2);line-height:1.8}
+.typing-dots{display:flex;gap:5px;padding:6px 0;align-items:center}
+.typing-dots span{width:7px;height:7px;background:var(--gold);border-radius:50%;animation:bounce 1.2s ease-in-out infinite;flex-shrink:0}
+.typing-dots span:nth-child(2){animation-delay:.15s}
+.typing-dots span:nth-child(3){animation-delay:.3s}
+.demo-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:6px}
+.demo-input-row{display:flex;gap:8px;flex-wrap:wrap}
+#demoQ{flex:1;min-width:180px;background:var(--bg4);border:1px solid var(--b2);border-radius:7px;padding:10px 12px;color:var(--t1);font-size:13px;outline:none;transition:border-color .2s;font-family:inherit}
+#demoQ:focus{border-color:var(--gbr)}
+#demoResult{display:none;margin-top:14px;animation:fadeIn .3s ease}
+.analysis-label{font-family:'Courier New',monospace;font-size:9px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:8px}
+#demoBody{font-size:13px;color:var(--t2);line-height:1.85;margin-bottom:12px}
+.integrity-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding-top:10px;border-top:1px solid var(--b1);margin-bottom:10px}
+.disclaimer-line{font-size:10px;color:var(--t3);margin-bottom:10px}
+.action-row{display:flex;gap:6px;flex-wrap:wrap}
+.source-panel{margin-top:8px}
+.source-toggle{color:var(--blue);font-size:12px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px solid var(--b1)}
+.source-toggle span{color:var(--t3);font-size:10px}
+.source-body{display:none;padding-top:8px}
+.source-body.open{display:block}
+.source-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--b1);gap:8px;flex-wrap:wrap}
+.source-row:last-child{border:none}
+.source-name{font-family:'Courier New',monospace;font-size:10px;color:var(--blue);white-space:nowrap}
+.source-desc{font-size:11px;color:var(--t3);flex:1;min-width:80px}
+.btn-visit{background:transparent;border:1px solid var(--b2);color:var(--t2);padding:3px 9px;border-radius:3px;font-size:10px;font-family:'Courier New',monospace;transition:.2s;white-space:nowrap}
+.btn-visit:hover{border-color:var(--blue);color:var(--blue)}
+
+/* ── TRUST / STATS ── */
+#trustBar{max-width:760px;margin:0 auto 24px;padding:0 16px}
+.trust-inner{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.trust-pill{background:var(--bg3);border:1px solid var(--b1);border-radius:3px;padding:3px 9px;font-family:'Courier New',monospace;font-size:9px;color:var(--t3);letter-spacing:1px}
+#statsRow{max-width:760px;margin:0 auto 24px;padding:0 16px}
+.stats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--b1);border-radius:8px;overflow:hidden}
+@media(max-width:500px){.stats-grid{grid-template-columns:repeat(3,1fr)}}
+.stat-cell{background:var(--bg2);padding:14px 8px;text-align:center}
+.stat-num{font-family:Georgia,serif;font-size:19px;color:var(--gold);letter-spacing:-1px}
+.stat-lbl{font-family:'Courier New',monospace;font-size:7px;letter-spacing:1px;color:var(--t3);text-transform:uppercase;margin-top:3px}
+
+/* ── GRAPH ── */
+#graphSection{max-width:760px;margin:0 auto 24px;padding:0 16px}
+.section-label{font-family:'Courier New',monospace;font-size:9px;letter-spacing:2px;color:var(--t3);text-transform:uppercase;margin-bottom:12px}
+.graph-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;flex-wrap:wrap;gap:8px}
+.graph-badge{background:var(--gdim);border:1px solid var(--gbr);color:var(--gold);font-family:'Courier New',monospace;font-size:7px;letter-spacing:2px;padding:2px 7px;border-radius:3px}
+#graphCanvas{position:relative;height:300px;width:100%;overflow:hidden;border-radius:6px;margin-top:10px}
+@media(max-width:500px){#graphCanvas{height:240px}}
+#graphSvg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.g-node{position:absolute;transform:translate(-50%,-50%);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s;font-family:'Courier New',monospace;text-align:center;z-index:2;line-height:1.2;padding:2px}
+.g-node:hover,.g-node:active{transform:translate(-50%,-50%) scale(1.15);z-index:10}
+.g-node.type-center{background:rgba(201,168,76,.2);border:2px solid var(--gold);color:var(--gold)}
+.g-node.type-person{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.4);color:var(--gold)}
+.g-node.type-org{background:rgba(74,143,212,.15);border:1px solid rgba(74,143,212,.4);color:var(--blue)}
+.g-node.type-dark{background:rgba(217,85,85,.12);border:1px solid rgba(217,85,85,.3);color:var(--red)}
+#graphTooltip{position:absolute;background:var(--bg3);border:1px solid var(--b2);border-radius:7px;padding:10px 13px;font-size:11px;pointer-events:none;z-index:20;display:none;max-width:170px;box-shadow:0 4px 20px rgba(0,0,0,.5)}
+#graphTooltip .tt-name{color:var(--t1);font-weight:600;margin-bottom:3px}
+#graphTooltip .tt-info{color:var(--t2);font-size:11px;margin-bottom:2px}
+#graphTooltip .tt-src{color:var(--t3);font-family:'Courier New',monospace;font-size:8px}
+.graph-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--t3)}
+.legend-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.graph-footer{font-size:10px;color:var(--t3);margin-top:6px}
+
+/* ── CRISIS INTELLIGENCE SECTION ── */
+#crisisSection{max-width:760px;margin:0 auto 24px;padding:0 16px}
+.crisis-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.crisis-card{background:var(--bg3);border:1px solid rgba(217,85,85,0.2);border-radius:8px;padding:13px 14px;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
+.crisis-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--red),transparent)}
+.crisis-card:hover{border-color:rgba(217,85,85,0.4);background:var(--bg4)}
+.crisis-card:active{background:var(--bg5)}
+.cc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;gap:8px}
+.cc-region{font-family:'Courier New',monospace;font-size:7px;letter-spacing:1.5px;color:var(--red);text-transform:uppercase}
+.cc-heat{font-size:10px;color:var(--orange);white-space:nowrap}
+.cc-q{color:var(--t1);font-size:12px;line-height:1.45;margin-bottom:8px}
+.cc-meta{font-size:10px;color:var(--t3);display:flex;align-items:center;gap:5px}
+.cc-meta-dot{width:4px;height:4px;background:var(--orange);border-radius:50%;flex-shrink:0}
+
+/* ── TRENDING / VIRAL ── */
+#trending{max-width:760px;margin:0 auto 24px;padding:0 16px}
+.trending-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.trend-card{background:var(--bg3);border:1px solid var(--b1);border-radius:8px;padding:12px 14px;cursor:pointer;transition:.2s}
+.trend-card:hover{border-color:var(--b2)}
+.trend-card:active{background:var(--bg4)}
+.trend-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.trend-cat{font-family:'Courier New',monospace;font-size:7px;letter-spacing:1.5px;color:var(--t3)}
+.trend-count{font-size:10px;color:var(--green)}
+.trend-q{color:var(--t1);font-size:12px;line-height:1.45;margin-bottom:9px}
+.trend-bar{height:2px;background:var(--b1);border-radius:1px}
+.trend-fill{height:100%;background:linear-gradient(90deg,var(--gold),rgba(201,168,76,.4));border-radius:1px}
+#viralQ{max-width:760px;margin:0 auto 24px;padding:0 16px}
+.vq-item{display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:7px;cursor:pointer;transition:.2s;border:1px solid transparent}
+.vq-item:hover{background:var(--bg3);border-color:var(--b1)}
+.vq-item:active{background:var(--bg4)}
+.vq-num{font-family:'Courier New',monospace;font-size:10px;color:var(--t3);min-width:18px;flex-shrink:0}
+.vq-text{color:var(--t2);font-size:13px;flex:1;line-height:1.4}
+@media(max-width:480px){.vq-text{font-size:12px}}
+.vq-hot{background:rgba(217,85,85,.12);border:1px solid rgba(217,85,85,.25);color:var(--red);font-family:'Courier New',monospace;font-size:7px;letter-spacing:1.5px;padding:2px 6px;border-radius:3px;flex-shrink:0}
+.vq-war{background:rgba(224,123,57,.1);border:1px solid rgba(224,123,57,.25);color:var(--orange);font-family:'Courier New',monospace;font-size:7px;letter-spacing:1.5px;padding:2px 6px;border-radius:3px;flex-shrink:0}
+.vq-cnt{font-family:'Courier New',monospace;font-size:10px;color:var(--t3);display:flex;align-items:center;gap:3px;flex-shrink:0}
+@media(max-width:400px){.vq-cnt{display:none}}
+.vq-cnt-dot{width:4px;height:4px;background:var(--green);border-radius:50%}
+.vq-arrow{color:var(--t3);font-size:13px;flex-shrink:0;transition:color .2s}
+.vq-item:hover .vq-arrow{color:var(--gold)}
+
+/* ── REEL / CTA / FOOTER ── */
+#reelSection{max-width:760px;margin:0 auto 24px;padding:0 16px}
+.reel-card{border:1px solid var(--gbr)}
+.reel-header{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.excl-badge{background:var(--gdim);border:1px solid var(--gbr);color:var(--gold);font-family:'Courier New',monospace;font-size:7px;letter-spacing:2px;padding:2px 7px;border-radius:3px}
+.reel-desc{color:var(--t2);font-size:12px;margin-bottom:12px;line-height:1.6}
+.creator-tag{background:var(--gdim);border:1px solid var(--gbr);border-radius:5px;padding:7px 11px;display:flex;align-items:flex-start;gap:7px;margin-bottom:12px}
+.creator-tag-text{color:var(--gold);font-size:11px;line-height:1.5}
+.reel-input-row{display:flex;gap:8px;flex-wrap:wrap}
+#reelInput{flex:1;min-width:160px;background:var(--bg4);border:1px solid var(--b2);border-radius:7px;padding:10px 12px;color:var(--t1);font-size:13px;outline:none;transition:border-color .2s;font-family:inherit}
+#reelInput:focus{border-color:var(--gbr)}
+#reelResult{display:none;margin-top:14px;animation:fadeIn .3s ease}
+#reelBody{font-size:12px;color:var(--t2);line-height:1.8;white-space:pre-line;background:var(--bg4);border:1px solid var(--b1);border-radius:7px;padding:13px;margin-bottom:10px}
+#ctaBlock{max-width:760px;margin:0 auto 24px;padding:0 16px}
+.cta-inner{text-align:center;padding:36px 20px;background:var(--bg2);border:1px solid var(--b1);border-radius:10px;position:relative;overflow:hidden}
+.cta-inner::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:60%;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.cta-eye{font-family:'Courier New',monospace;font-size:8px;letter-spacing:2.5px;color:var(--t3);margin-bottom:12px}
+.cta-inner h2{font-size:clamp(20px,4vw,34px);margin-bottom:10px}
+.cta-sub{color:var(--t2);font-size:13px;max-width:380px;margin:0 auto 20px;line-height:1.6}
+.cta-counter{font-size:11px;color:var(--t3);margin-top:12px}
+.cta-counter strong{color:var(--green)}
+.cta-disclaimer{font-size:9px;color:var(--t4);max-width:440px;margin:14px auto 0;line-height:1.6}
+#footer{border-top:1px solid var(--b1);padding:20px 16px;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px}
+.footer-brand{font-family:Georgia,serif;font-size:13px}
+.footer-sub{font-family:'Courier New',monospace;font-size:7px;letter-spacing:2px;color:var(--t3);margin-top:3px}
+.footer-links{display:flex;gap:14px;flex-wrap:wrap}
+.footer-links a{font-size:11px;color:var(--t3);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--t2)}
+
+/* ══ CHAT OVERLAY ══ */
+#chatEl{position:fixed;inset:0;z-index:200;background:var(--bg);display:none;flex-direction:column;overscroll-behavior:none}
+#chatEl.open{display:flex}
+#chatNav{height:var(--nav-h);background:rgba(7,7,12,.97);border-bottom:1px solid var(--b1);display:flex;align-items:center;justify-content:space-between;padding:0 16px;flex-shrink:0;gap:10px}
+.chat-back{background:none;border:none;color:var(--t2);display:flex;align-items:center;gap:6px;font-size:13px;transition:color .2s;padding:6px 0;flex-shrink:0}
+.chat-back:hover{color:var(--t1)}
+.chat-title{font-family:'Courier New',monospace;font-size:9px;letter-spacing:2px;color:var(--t3)}
+@media(max-width:480px){.chat-title{display:none}}
+.free-badge{background:var(--gdim);border:1px solid var(--gbr);color:var(--gold);font-family:'Courier New',monospace;font-size:9px;padding:4px 9px;border-radius:4px;white-space:nowrap;flex-shrink:0}
+#chatMsgs{flex:1;overflow-y:auto;overflow-x:hidden;padding:16px;display:flex;flex-direction:column;gap:12px;-webkit-overflow-scrolling:touch}
+.recent-bar{background:var(--bg2);border:1px solid var(--b1);border-radius:8px;padding:10px 12px}
+.recent-label{font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--t3);margin-bottom:7px}
+.recent-chips{display:flex;gap:6px;flex-wrap:wrap}
+.recent-chip{background:var(--bg4);border:1px solid var(--b1);color:var(--t2);font-size:11px;padding:4px 10px;border-radius:14px;cursor:pointer;transition:.2s;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.recent-chip:hover,.recent-chip:active{border-color:var(--gbr);color:var(--gold)}
+.msg-wrap{display:flex;flex-direction:column;animation:fadeIn .25s ease}
+.msg-user{align-self:flex-end;max-width:80%}
+@media(max-width:480px){.msg-user{max-width:90%}}
+.msg-user .bubble{background:var(--gdim);border:1px solid var(--gbr);border-radius:9px 9px 2px 9px;padding:10px 13px;font-size:13px;color:var(--t1);line-height:1.65;word-break:break-word}
+.msg-ai{align-self:flex-start;width:100%}
+.ai-label{font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--gold);margin-bottom:5px;padding-left:2px}
+.msg-ai .bubble{background:var(--bg3);border:1px solid var(--b1);border-radius:2px 9px 9px 9px;padding:13px 15px;font-size:13px;color:var(--t2);line-height:1.8;word-break:break-word}
+.msg-ai .bubble strong{color:var(--t1)}
+.answer-body{font-size:13px;line-height:1.8;color:var(--t2)}
+.blur-wrap{position:relative;overflow:hidden}
+.blur-wrap.blurred::after{content:'';position:absolute;bottom:0;left:0;right:0;height:100px;background:linear-gradient(transparent,var(--bg3));pointer-events:none}
+.unlock-cta{background:var(--gdim);border:1px solid var(--gbr);border-radius:7px;padding:12px 14px;margin-top:-10px;position:relative;z-index:2;text-align:center}
+.unlock-cta p{font-size:11px;color:var(--t2);margin-bottom:8px}
+.ai-integrity{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding-top:10px;margin-top:10px;border-top:1px solid var(--b1)}
+.ai-disclaimer{font-size:10px;color:var(--t3);margin-top:7px;line-height:1.5}
+.ai-disclaimer a{color:var(--blue);font-size:10px}
+.ai-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.ai-suggestions{display:flex;flex-direction:column;gap:5px;margin-top:9px}
+.sugg-btn{background:var(--bg4);border:1px solid var(--b1);color:var(--t2);font-size:12px;padding:8px 12px;border-radius:7px;text-align:left;transition:.2s;line-height:1.4}
+.sugg-btn:hover,.sugg-btn:active{border-color:var(--gbr);color:var(--gold)}
+.mini-graph{background:var(--bg2);border:1px solid var(--b1);border-radius:8px;padding:10px;margin-top:10px}
+.mini-graph-header{font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--t3);margin-bottom:6px}
+.mini-graph-canvas{position:relative;height:180px;overflow:hidden;border-radius:5px;background:rgba(255,255,255,.01)}
+.mini-graph-canvas svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.m-node{position:absolute;transform:translate(-50%,-50%);border-radius:50%;cursor:pointer;transition:transform .2s;z-index:2;display:flex;align-items:center;justify-content:center;font-family:'Courier New',monospace;font-size:6px;text-align:center;line-height:1.2;padding:2px}
+.m-node:hover,.m-node:active{transform:translate(-50%,-50%) scale(1.18)}
+
+.pro-gate-card{background:var(--bg3);border:1px solid var(--gbr);border-radius:10px;padding:16px;position:relative;overflow:hidden}
+.pro-gate-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent)}
+.pro-gate-card h3{font-family:Georgia,serif;font-size:17px;letter-spacing:-1px;margin-bottom:7px;color:var(--t1)}
+.pro-gate-card p{font-size:12px;color:var(--t2);margin-bottom:12px;line-height:1.6}
+.perk-chips{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px}
+.perk-chip{background:var(--bg4);border:1px solid var(--b2);color:var(--t2);font-size:10px;padding:3px 9px;border-radius:14px;font-family:'Courier New',monospace}
+#chatInputArea{flex-shrink:0;background:rgba(7,7,12,.99);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--b1);padding:10px 16px;padding-bottom:max(10px,env(safe-area-inset-bottom))}
+.quick-chips{display:flex;gap:6px;overflow-x:auto;margin-bottom:8px;padding-bottom:2px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.quick-chips::-webkit-scrollbar{display:none}
+.quick-chip{background:var(--bg4);border:1px solid var(--b1);color:var(--t3);font-size:11px;padding:5px 11px;border-radius:14px;cursor:pointer;transition:.2s;white-space:nowrap;flex-shrink:0}
+.quick-chip:hover,.quick-chip:active{border-color:var(--gbr);color:var(--gold)}
+.input-row{display:flex;gap:8px;align-items:flex-end}
+#chatInput{flex:1;background:var(--bg4);border:1px solid var(--b2);border-radius:7px;padding:10px 13px;color:var(--t1);font-size:16px;outline:none;resize:none;min-height:42px;max-height:120px;transition:border-color .2s;font-family:inherit;line-height:1.5;-webkit-appearance:none}
+#chatInput:focus{border-color:var(--gbr)}
+#sendBtn{background:var(--gold);color:#07070C;border:none;padding:0 16px;border-radius:7px;font-weight:700;font-size:13px;transition:background .2s;height:42px;flex-shrink:0}
+#sendBtn:hover:not(:disabled){background:var(--gl)}
+#sendBtn:disabled{opacity:.4;cursor:not-allowed}
+</style>
+</head>
+<body>
+
+<!-- ══ LANDING ══ -->
+<div id="landing">
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo" onclick="openChat()">
+    <div class="pulse-wrap"><div class="pulse-dot"></div><div class="pulse-ring"></div></div>
+    WhoIsPaying
+  </div>
+  <div class="nav-links">
+    <a href="#" onclick="openChat();return false">Investigate</a>
+    <a href="#crisisSection" onclick="event.preventDefault();document.getElementById('crisisSection').scrollIntoView({behavior:'smooth'})">Crisis</a>
+    <a href="#trustBar" onclick="event.preventDefault();document.getElementById('trustBar').scrollIntoView({behavior:'smooth'})">Sources</a>
+    <a href="#graphSection" onclick="event.preventDefault();document.getElementById('graphSection').scrollIntoView({behavior:'smooth'})">Graph</a>
+    <a href="#">API</a>
+  </div>
+  <div class="nav-right">
+    <div class="live-count"><strong id="navCount">1,284</strong> today</div>
+    <button class="btn-gold" style="padding:8px 14px;font-size:12px" onclick="openChat()">Investigate →</button>
+  </div>
+</nav>
+
+<!-- TICKER — includes geopolitical items -->
+<div id="ticker">
+  <div class="ticker-label"><div class="blink-dot"></div>LIVE</div>
+  <div class="ticker-track"><div class="ticker-inner" id="tickerInner"></div></div>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="eyebrow"><div class="eyebrow-dot"></div>AI-POWERED GLOBAL INTELLIGENCE</div>
+  <h1><span>Follow the money.</span><span><em>Expose the power.</em></span></h1>
+  <p class="hero-sub">Wars are funded. Ports are lobbied. Elections are bought. The world's first AI investigative platform traces every dollar — verified, sourced, visible.</p>
+  <div class="hero-cta">
+    <button class="btn-gold" onclick="openChat()">Begin Investigation →</button>
+    <button class="btn-ghost" onclick="document.getElementById('crisisSection').scrollIntoView({behavior:'smooth'})">🚨 Crisis Tracker ↓</button>
+  </div>
+</section>
+
+<!-- CRISIS BAND -->
+<div id="crisisBand">
+  <div class="crisis-inner">
+    <div class="crisis-eyebrow"><div class="crisis-dot"></div><span class="crisis-tag">Crisis Monitor</span></div>
+    <div class="crisis-pills" id="crisisPills"></div>
+  </div>
+</div>
+
+<!-- AD SLOT 1 — LEADERBOARD (Below Crisis Monitor) -->
+<div style="max-width:760px;margin:0 auto 24px;padding:0 16px;text-align:center">
+  <div style="font-family:'Courier New',monospace;font-size:7px;letter-spacing:1px;color:var(--t4);margin-bottom:4px;text-transform:uppercase">Advertisement</div>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-3065529797261346"
+       data-ad-slot="auto"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<!-- INSIGHT -->
+<div id="insightCard">
+  <div class="card" style="margin-top:20px">
+    <div class="insight-header">
+      <div class="label-sm">Live Intelligence Brief</div>
+      <div class="insight-live"><div class="green-dot"></div>Updated now</div>
+    </div>
+    <div id="insightBody"><div class="typing-dots"><span></span><span></span><span></span></div></div>
+  </div>
+</div>
+
+<!-- DEMO -->
+<div id="demoCard">
+  <div class="card">
+    <div class="demo-header">
+      <div class="label-sm">Live Demo — No Signup Required</div>
+      <div class="insight-live"><div class="green-dot"></div>Real AI · Verifiable sources</div>
+    </div>
+    <div class="demo-input-row">
+      <input id="demoQ" value="Who is financing the war in Ukraine and what do they gain?" />
+      <button class="btn-gold" id="demoBtn" onclick="runDemo()">Investigate →</button>
+    </div>
+    <div id="demoResult">
+      <div style="margin-top:12px">
+        <div class="analysis-label">Analysis</div>
+        <div id="demoBody"><div class="typing-dots"><span></span><span></span><span></span></div></div>
+        <div class="integrity-row" id="demoIntegrity" style="display:none"></div>
+        <div class="source-panel">
+          <div class="source-toggle" onclick="toggleSources()"><span style="color:var(--blue)">VIEW SOURCES & METHODOLOGY →</span><span>tap to expand</span></div>
+          <div class="source-body" id="sourceBody">
+            <div class="source-row"><span class="source-name">FEC.gov</span><span class="source-desc">US federal campaign finance</span><button class="btn-visit" onclick="window.open('https://www.fec.gov/data/')">Visit →</button></div>
+            <div class="source-row"><span class="source-name">OpenSecrets</span><span class="source-desc">Money in US politics</span><button class="btn-visit" onclick="window.open('https://www.opensecrets.org')">Visit →</button></div>
+            <div class="source-row"><span class="source-name">ProPublica</span><span class="source-desc">Investigative journalism & data</span><button class="btn-visit" onclick="window.open('https://www.propublica.org')">Visit →</button></div>
+            <div class="source-row"><span class="source-name">EU Transparency</span><span class="source-desc">EU lobbying disclosures</span><button class="btn-visit" onclick="window.open('https://ec.europa.eu/transparencyregister/')">Visit →</button></div>
+            <div class="source-row"><span class="source-name">FARA</span><span class="source-desc">Foreign agent registrations</span><button class="btn-visit" onclick="window.open('https://www.justice.gov/nsd/fara')">Visit →</button></div>
+            <div class="source-row"><span class="source-name">Meta Ad Library</span><span class="source-desc">Political ad spend</span><button class="btn-visit" onclick="window.open('https://www.facebook.com/ads/library')">Visit →</button></div>
+          </div>
+        </div>
+        <div class="disclaimer-line" id="demoDisclaimer" style="display:none">AI-assisted analysis. Claims labelled VERIFIED/ESTIMATED/UNKNOWN. <a href="#" onclick="toggleSources();return false">Methodology →</a></div>
+        <div class="action-row" id="demoActions" style="display:none">
+          <button class="btn-ghost" id="demoCopyBtn">Copy</button>
+          <button class="btn-ghost" id="demoShareBtn">🚨 Share Breaking</button>
+          <button class="btn-gold" onclick="openChat(document.getElementById('demoQ').value)">Deep dive →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TRUST BAR -->
+<div id="trustBar">
+  <div class="card" style="padding:12px 16px">
+    <div class="trust-inner">
+      <span class="label-dim">SOURCES:</span>
+      <span class="trust-pill">FEC.gov</span><span class="trust-pill">OpenSecrets</span><span class="trust-pill">ProPublica</span><span class="trust-pill">EU Transparency</span><span class="trust-pill">FARA</span><span class="trust-pill">Meta Ad Library</span>
+    </div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div id="statsRow">
+  <div class="stats-grid">
+    <div class="stat-cell"><div class="stat-num">$14B+</div><div class="stat-lbl">2024 US Election</div></div>
+    <div class="stat-cell"><div class="stat-num">€1.5B</div><div class="stat-lbl">EU Lobbying/yr</div></div>
+    <div class="stat-cell"><div class="stat-num">$200B+</div><div class="stat-lbl">War Aid 2022–25</div></div>
+    <div class="stat-cell"><div class="stat-num">$62B+</div><div class="stat-lbl">Defense Lobbying</div></div>
+    <div class="stat-cell"><div class="stat-num">$1T+</div><div class="stat-lbl">Dark Money Est.</div></div>
+  </div>
+</div>
+
+<!-- GRAPH -->
+<div id="graphSection">
+  <div class="section-label">Investigation Graph — Entity Network</div>
+  <div class="card" style="padding:14px 16px">
+    <div class="graph-header">
+      <div class="label-sm">US Election Money Network — 2024</div>
+      <div class="graph-badge">LIVE GRAPH ENGINE</div>
+    </div>
+    <div id="graphCanvas">
+      <svg id="graphSvg"></svg>
+      <div id="graphTooltip"><div class="tt-name"></div><div class="tt-info"></div><div class="tt-src"></div></div>
+    </div>
+    <div class="graph-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div>Individual</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div>Organization</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div>Money Flow</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div>Dark Money</div>
+    </div>
+    <div class="graph-footer">Tap any node to investigate. Hover to see amounts.</div>
+  </div>
+</div>
+
+
+
+<!-- CRISIS INTELLIGENCE SECTION -->
+<div id="crisisSection">
+  <div class="section-label">Crisis Intelligence — Who Is Paying for War & Power</div>
+  <div class="crisis-grid" id="crisisGrid"></div>
+</div>
+
+<!-- TRENDING -->
+<div id="trending" style="margin-top:24px">
+  <div class="section-label">Trending Investigations</div>
+  <div class="trending-grid" id="trendingGrid"></div>
+</div>
+
+<!-- AD SLOT 2 — LEADERBOARD (Between Trending & Viral Q) -->
+<div style="max-width:760px;margin:0 auto 24px;padding:0 16px;text-align:center">
+  <div style="font-family:'Courier New',monospace;font-size:7px;letter-spacing:1px;color:var(--t4);margin-bottom:4px;text-transform:uppercase">Advertisement</div>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-client="ca-pub-3065529797261346"
+       data-ad-slot="auto"
+       data-ad-format="auto"
+       data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+
+<!-- VIRAL Q -->
+<div id="viralQ">
+  <div class="section-label">Most Investigated Questions</div>
+  <div id="viralList"></div>
+</div>
+
+<!-- REEL -->
+<div id="reelSection">
+  <div class="card reel-card">
+    <div class="reel-header">
+      <div class="label-sm">Reel Script Generator</div>
+      <div class="excl-badge">EXCLUSIVE</div>
+    </div>
+    <p class="reel-desc">Turn any financial investigation into a viral short-form video. Hook, script, and caption — ready to record.</p>
+    <div class="creator-tag">
+      <span style="color:var(--gold);font-size:13px;flex-shrink:0">↗</span>
+      <span class="creator-tag-text">Post your reel and tag @WhoIsPaying to get featured on our creator wall</span>
+    </div>
+    <div class="reel-input-row">
+      <input id="reelInput" placeholder="e.g. Who is funding the war in Gaza?" />
+      <button class="btn-gold" id="reelBtn" onclick="genReel()">Generate →</button>
+    </div>
+    <div id="reelResult">
+      <div class="label-sm" style="margin:12px 0 7px">Your Reel Script</div>
+      <div id="reelBody"></div>
+      <div class="action-row">
+        <button class="btn-ghost" id="reelCopyBtn">Copy</button>
+        <button class="btn-ghost" id="reelShareBtn">Share on X</button>
+        <button class="btn-gold" onclick="openChat(document.getElementById('reelInput').value)">Investigate →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div id="ctaBlock">
+  <div class="cta-inner">
+    <div class="cta-eye">START INVESTIGATING</div>
+    <h2>Power hides in money.<br><em>We make it visible.</em></h2>
+    <p class="cta-sub">Wars. Elections. Ports. Sanctions. Every dollar has a destination — we trace it.</p>
+    <button class="btn-gold" style="padding:12px 26px;font-size:14px" onclick="openChat()">Begin Your Investigation →</button>
+    <div class="cta-counter"><strong id="ctaCount">1,284</strong> investigations launched today worldwide</div>
+    <p class="cta-disclaimer">AI-assisted platform. All analysis based on publicly available data. Claims labelled VERIFIED, ESTIMATED, or UNKNOWN. Always verify critical claims with primary sources. WhoIsPaying.com does not guarantee accuracy of AI-generated content.</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<!-- ABOUT PAGE -->
+<div id="aboutPage" style="display:none;position:fixed;inset:0;z-index:150;background:var(--bg);overflow-y:auto">
+  <div style="max-width:720px;margin:0 auto;padding:40px 16px 60px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:40px">
+      <div class="nav-logo" style="cursor:default"><div class="pulse-wrap"><div class="pulse-dot"></div><div class="pulse-ring"></div></div>WhoIsPaying</div>
+      <button onclick="closePage('aboutPage')" style="background:none;border:1px solid var(--b2);color:var(--t2);padding:7px 14px;border-radius:7px;font-size:12px;cursor:pointer;transition:.2s" onmouseover="this.style.borderColor='var(--b3)';this.style.color='var(--t1)'" onmouseout="this.style.borderColor='var(--b2)';this.style.color='var(--t2)'">← Back</button>
+    </div>
+
+    <div style="margin-bottom:10px"><span class="label-sm">About</span></div>
+    <h1 style="font-size:clamp(28px,5vw,52px);line-height:1.05;margin-bottom:20px">The world's money.<br><em>Made visible.</em></h1>
+    <p style="font-size:15px;color:var(--t2);line-height:1.8;max-width:580px;margin-bottom:40px">WhoIsPaying.com was built on a single conviction: that the most important decisions in the world — wars, elections, trade routes, sanctions — are shaped not by ideology, but by money. And that money deserves to be seen.</p>
+
+    <div style="height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin-bottom:40px;max-width:120px"></div>
+
+    <div style="margin-bottom:36px">
+      <div class="label-sm" style="margin-bottom:14px">Our Vision</div>
+      <div class="card" style="padding:20px 22px">
+        <p style="font-size:14px;color:var(--t2);line-height:1.85">We believe financial transparency is a public good. When a government funds a war, when a corporation lobbies a port project, when a foreign state registers agents in Washington — that information exists in public records. It's just fragmented, technical, and deliberately hard to navigate.<br><br>
+        WhoIsPaying changes that. We combine AI-powered analysis with verifiable public data to make complex financial influence legible to anyone — journalists, researchers, investors, students, and citizens.<br><br>
+        Our goal is not to take sides. It is to follow the money — wherever it leads.</p>
+      </div>
+    </div>
+
+    <div style="margin-bottom:36px">
+      <div class="label-sm" style="margin-bottom:14px">The Problem We're Solving</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px">
+        <div class="card" style="padding:16px">
+          <div style="font-size:20px;margin-bottom:8px">🔍</div>
+          <div style="font-size:13px;font-weight:600;color:var(--t1);margin-bottom:5px">Data Exists. Insight Doesn't.</div>
+          <div style="font-size:12px;color:var(--t2);line-height:1.65">FEC, FARA, SIPRI, OpenSecrets — the records are public. But reading them requires legal expertise, time, and access most people don't have.</div>
+        </div>
+        <div class="card" style="padding:16px">
+          <div style="font-size:20px;margin-bottom:8px">🌐</div>
+          <div style="font-size:13px;font-weight:600;color:var(--t1);margin-bottom:5px">Global Scope. Local Blindspot.</div>
+          <div style="font-size:12px;color:var(--t2);line-height:1.65">Gulf lobbying in DC. Chinese debt in Pakistan. Russian money in Europe. The connections cross borders — but reporting rarely does.</div>
+        </div>
+        <div class="card" style="padding:16px">
+          <div style="font-size:20px;margin-bottom:8px">💡</div>
+          <div style="font-size:13px;font-weight:600;color:var(--t1);margin-bottom:5px">AI With Accountability.</div>
+          <div style="font-size:12px;color:var(--t2);line-height:1.65">Unlike generic AI tools, every WhoIsPaying claim is labelled VERIFIED, ESTIMATED, or UNKNOWN — so you always know what you're reading.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:36px">
+      <div class="label-sm" style="margin-bottom:14px">What We Cover</div>
+      <div class="card" style="padding:18px 20px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px 20px">
+          <div style="font-size:12px;color:var(--t2);display:flex;align-items:center;gap:7px">🗳️ Election finance &amp; PACs</div>
+          <div style="font-size:12px;color:var(--t2);display:flex;align-items:center;gap:7px">⚔️ War and conflict funding</div>
+          <div style="font-size:12px;color:var(--t2);display:flex;align-items:center;gap:7px">🏗️ Infrastructure lobbying</div>
+          <div style="font-size:12px;color:var(--t2);display:flex;align-items:center;gap:7px">🇸🇦 Gulf state influence ops</div>
+          <div style="font-size:12px;color:var(--t2);display:flex;align-items:center;gap:7px">🔒 Sanctions &amp; dark money</div>
+          <div style="font-size:12px;color:var(--t2);display:flex;align-items:center;gap:7px">🤝 Foreign agent registrations</div>
+          <div style="font-size:12px;color:var(--t2);display:flex;align-items:center;gap:7px">📊 Defense contractor PACs</div>
+          <div style="font-size:12px;color:var(--t2);display:flex;align-items:center;gap:7px">🌍 Geopolitical rivalry finance</div>
+          <div style="font-size:12px;color:var(--t2);display:flex;align-items:center;gap:7px">💼 Corporate political donations</div>
+          <div style="font-size:12px;color:var(--t2);display:flex;align-items:center;gap:7px">🕵️ Shell company networks</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:36px">
+      <div class="label-sm" style="margin-bottom:14px">Data Integrity Promise</div>
+      <div class="card" style="padding:18px 20px">
+        <p style="font-size:13px;color:var(--t2);line-height:1.8;margin-bottom:14px">Every answer on WhoIsPaying carries one of three labels — not as decoration, but as a commitment:</p>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:flex-start;gap:10px"><span class="tag-v">VERIFIED</span><span style="font-size:12px;color:var(--t2);line-height:1.6">Confirmed in a named public record — FEC filing, FARA registration, official budget document, or peer-reviewed dataset.</span></div>
+          <div style="display:flex;align-items:flex-start;gap:10px"><span class="tag-e">ESTIMATED</span><span style="font-size:12px;color:var(--t2);line-height:1.6">Derived from modelling, aggregation, or credible secondary reporting. We show our methodology where possible.</span></div>
+          <div style="display:flex;align-items:flex-start;gap:10px"><span class="tag-u">UNKNOWN</span><span style="font-size:12px;color:var(--t2);line-height:1.6">Dark money, shell entities, or unverifiable flows. We name the gap — not pretend it isn't there.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="border-top:1px solid var(--b1);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px">
+      <div style="font-size:12px;color:var(--t3);line-height:1.6">Questions or tips? <button onclick="closePage('aboutPage');openPage('contactPage')" style="background:none;border:none;color:var(--blue);font-size:12px;cursor:pointer;padding:0;text-decoration:underline">Contact us →</button></div>
+      <button class="btn-gold" onclick="closePage('aboutPage');openChat()">Begin Investigating →</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT PAGE -->
+<div id="contactPage" style="display:none;position:fixed;inset:0;z-index:150;background:var(--bg);overflow-y:auto">
+  <div style="max-width:600px;margin:0 auto;padding:40px 16px 60px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:40px">
+      <div class="nav-logo" style="cursor:default"><div class="pulse-wrap"><div class="pulse-dot"></div><div class="pulse-ring"></div></div>WhoIsPaying</div>
+      <button onclick="closePage('contactPage')" style="background:none;border:1px solid var(--b2);color:var(--t2);padding:7px 14px;border-radius:7px;font-size:12px;cursor:pointer;transition:.2s" onmouseover="this.style.borderColor='var(--b3)';this.style.color='var(--t1)'" onmouseout="this.style.borderColor='var(--b2)';this.style.color='var(--t2)'">← Back</button>
+    </div>
+
+    <div style="margin-bottom:10px"><span class="label-sm">Contact</span></div>
+    <h1 style="font-size:clamp(26px,5vw,46px);line-height:1.05;margin-bottom:16px">Get in touch.<br><em>We read everything.</em></h1>
+    <p style="font-size:14px;color:var(--t2);line-height:1.8;margin-bottom:36px">Whether you have a tip, a correction, a press inquiry, or a partnership idea — we want to hear from you. Use the form below. Your message goes directly to our team.</p>
+
+    <!-- Reason chips -->
+    <div style="margin-bottom:20px">
+      <div class="label-dim" style="margin-bottom:8px">I'm writing about:</div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap" id="reasonChips">
+        <button class="reason-chip active" data-val="General inquiry">General inquiry</button>
+        <button class="reason-chip" data-val="Press / media">Press / media</button>
+        <button class="reason-chip" data-val="Tip or leak">Tip or leak 🔒</button>
+        <button class="reason-chip" data-val="Data correction">Data correction</button>
+        <button class="reason-chip" data-val="Partnership / API">Partnership / API</button>
+      </div>
+    </div>
+
+    <!-- Contact form — submits via mailto obfuscation -->
+    <div class="card" style="padding:20px 22px">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div>
+          <div class="label-dim" style="margin-bottom:6px">Your name</div>
+          <input id="cName" type="text" placeholder="Jane Smith" style="width:100%;background:var(--bg4);border:1px solid var(--b2);border-radius:7px;padding:10px 13px;color:var(--t1);font-size:13px;outline:none;font-family:inherit;transition:border-color .2s" onfocus="this.style.borderColor='var(--gbr)'" onblur="this.style.borderColor='var(--b2)'">
+        </div>
+        <div>
+          <div class="label-dim" style="margin-bottom:6px">Your email <span style="color:var(--t3);font-size:9px">(for our reply only — never shared)</span></div>
+          <input id="cEmail" type="email" placeholder="you@example.com" style="width:100%;background:var(--bg4);border:1px solid var(--b2);border-radius:7px;padding:10px 13px;color:var(--t1);font-size:13px;outline:none;font-family:inherit;transition:border-color .2s" onfocus="this.style.borderColor='var(--gbr)'" onblur="this.style.borderColor='var(--b2)'">
+        </div>
+        <div>
+          <div class="label-dim" style="margin-bottom:6px">Subject</div>
+          <input id="cSubject" type="text" placeholder="What's this about?" style="width:100%;background:var(--bg4);border:1px solid var(--b2);border-radius:7px;padding:10px 13px;color:var(--t1);font-size:13px;outline:none;font-family:inherit;transition:border-color .2s" onfocus="this.style.borderColor='var(--gbr)'" onblur="this.style.borderColor='var(--b2)'">
+        </div>
+        <div>
+          <div class="label-dim" style="margin-bottom:6px">Message</div>
+          <textarea id="cMsg" rows="5" placeholder="Your message…" style="width:100%;background:var(--bg4);border:1px solid var(--b2);border-radius:7px;padding:10px 13px;color:var(--t1);font-size:13px;outline:none;font-family:inherit;resize:vertical;line-height:1.6;transition:border-color .2s" onfocus="this.style.borderColor='var(--gbr)'" onblur="this.style.borderColor='var(--b2)'"></textarea>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+          <div style="font-size:10px;color:var(--t3);line-height:1.6;max-width:300px">We aim to reply within 48 hours. Tips are handled confidentially.</div>
+          <button class="btn-gold" onclick="submitContact()" id="contactSendBtn" style="padding:10px 22px">Send Message →</button>
+        </div>
+        <div id="contactFeedback" style="display:none;font-size:12px;border-radius:6px;padding:10px 13px;line-height:1.6"></div>
+      </div>
+    </div>
+
+    <!-- Secure note -->
+    <div style="margin-top:14px;background:var(--gdim);border:1px solid var(--gbr);border-radius:7px;padding:10px 14px;display:flex;gap:10px;align-items:flex-start">
+      <span style="font-size:14px;flex-shrink:0">🔒</span>
+      <div style="font-size:11px;color:var(--t2);line-height:1.6"><strong style="color:var(--gold)">Sensitive tips?</strong> For leaks, whistleblower information, or anything requiring anonymity — we recommend reaching out via <a href="https://signal.org" target="_blank" style="color:var(--blue)">Signal</a> or an anonymous email provider such as <a href="https://proton.me" target="_blank" style="color:var(--blue)">ProtonMail</a>. Our address is assembled only when you hit Send — it is never visible in page source.</div>
+    </div>
+
+    <div style="margin-top:20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+      <a href="https://twitter.com/WhoIsPaying" target="_blank" style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:1.5px;color:var(--t3);text-decoration:none;transition:.2s" onmouseover="this.style.color='var(--t1)'" onmouseout="this.style.color='var(--t3)'">𝕏 @WhoIsPaying</a>
+      <a href="https://instagram.com/WhoIsPaying" target="_blank" style="font-family:'Courier New',monospace;font-size:9px;letter-spacing:1.5px;color:var(--t3);text-decoration:none;transition:.2s" onmouseover="this.style.color='var(--t1)'" onmouseout="this.style.color='var(--t3)'">📷 @WhoIsPaying</a>
+    </div>
+  </div>
+</div>
+
+<footer id="footer">
+  <div><div class="footer-brand">WhoIsPaying.com</div><div class="footer-sub">Global Financial Intelligence</div></div>
+  <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+    <div class="footer-links">
+      <a href="#" onclick="openPage('aboutPage');return false">About</a><a href="#">Methodology</a><a href="#">Crisis Tracker</a><a href="#">API</a><a href="#" onclick="openPage('contactPage');return false">Contact</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;padding-left:8px;border-left:1px solid var(--b1)">
+      <a href="https://twitter.com/WhoIsPaying" target="_blank" rel="noopener" title="Follow on X" style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:6px;background:var(--bg3);border:1px solid var(--b2);color:var(--t2);font-weight:700;font-size:13px;text-decoration:none;transition:.2s;font-family:Georgia,serif" onmouseover="this.style.borderColor='var(--b3)';this.style.color='var(--t1)'" onmouseout="this.style.borderColor='var(--b2)';this.style.color='var(--t2)'">𝕏</a>
+      <a href="https://instagram.com/WhoIsPaying" target="_blank" rel="noopener" title="Follow on Instagram" style="display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:6px;background:var(--bg3);border:1px solid var(--b2);color:var(--t2);font-size:15px;text-decoration:none;transition:.2s" onmouseover="this.style.borderColor='var(--b3)';this.style.color='var(--t1)'" onmouseout="this.style.borderColor='var(--b2)';this.style.color='var(--t2)'">&#x1F4F7;</a>
+    </div>
+  </div>
+</footer>
+</div><!-- /landing -->
+
+<!-- ══ CHAT OVERLAY ══ -->
+<div id="chatEl">
+  <nav id="chatNav">
+    <button class="chat-back" onclick="closeChat()">← Back <span class="chat-title" style="margin-left:6px">WHOISPAYING — INVESTIGATIVE MODE</span></button>
+    <div class="free-badge" id="freeBadge">5 FREE TODAY</div>
+  </nav>
+  <div id="chatMsgs"></div>
+
+  <!-- AD SLOT 3 — MOBILE BANNER (Chat overlay, above input) -->
+  <div style="padding:6px 16px;background:rgba(7,7,12,.95);border-top:1px solid var(--b1);text-align:center;flex-shrink:0">
+    <div style="font-family:'Courier New',monospace;font-size:7px;letter-spacing:1px;color:var(--t4);margin-bottom:3px;text-transform:uppercase">Advertisement</div>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-3065529797261346"
+         data-ad-slot="auto"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <div id="chatInputArea">
+    <div class="quick-chips" id="quickChips"></div>
+    <div class="input-row">
+      <textarea id="chatInput" placeholder="Investigate any war finance, lobbying trail, or political money…" rows="1"></textarea>
+      <button id="sendBtn" onclick="sendMsg()">Send →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// API key is stored server-side in a Netlify environment variable.
+// This file contains NO secrets — safe to inspect in browser source.
+const API_URL = '/api/chat';
+let freeLeft=5, chatHistory=[], chatOpened=false, liveCount=1284;
+
+// ── SYSTEM PROMPTS ──
+const SYS_CHAT=`You are an elite investigative financial analyst for WhoIsPaying.com — a global political money tracker.
+
+MISSION: Expose who is influencing power through money — globally. This includes war financing, arms lobbying, infrastructure lobbying (ports, pipelines), sanctions-busting, and dark money in geopolitical conflict zones.
+
+CRITICAL DATA INTEGRITY RULES:
+- NEVER fabricate specific figures, names, or transactions
+- Label every factual claim: [VERIFIED] = confirmed public record | [ESTIMATED] = modeled/approximate | [UNKNOWN] = dark money/unconfirmed/hidden
+- If data unavailable say: 'No verified public record confirms this'
+- Only cite real organizations: FEC, OpenSecrets, ProPublica, EU Transparency Register, FARA, Meta Ad Library, SIPRI, USAID, World Bank, IMF
+
+MANDATORY RESPONSE STRUCTURE:
+**TL;DR:** (2 lines — the verdict)
+
+**Key Players:**
+- Name/org — role — amount [LABEL]
+
+**Money Flow:**
+How funds moved, through what channels [LABEL]
+
+**Hidden Influence:**
+Dark money, shell entities, sanctions evasion [UNKNOWN] where relevant
+
+**What This Means:**
+2-3 sentences on real-world geopolitical / financial impact
+
+Occasionally use naturally (sparingly): 'Here's the part most people don't see:' or 'This is where it gets interesting:'
+
+**Key Sources:** 2-4 real named sources
+
+After your full answer on new lines:
+SUGGEST: question1|question2|question3
+INTEGRITY: VERIFIED,ESTIMATED,UNKNOWN
+ENTITIES: name1:type1:amount1|name2:type2:amount2
+(types: person/org/money/dark — max 6 real named entities)`;
+
+const SYS_DEMO=`You are an elite investigative analyst for WhoIsPaying.com. Answer concisely (max 300 words). Label every claim [VERIFIED], [ESTIMATED], or [UNKNOWN]. Cover war finance, lobbying, geopolitical money flows where relevant.
+
+Structure:
+**TL;DR:** (2 lines)
+**Key Players:** bullet list with amounts and labels
+**Money Flow:** how funds moved
+**Hidden Influence:** dark money / sanctions angle
+
+End with:
+INTEGRITY: comma-separated labels used
+ENTITIES: name1:type1:amount1|name2:type2:amount2 (max 5, types: person/org/dark)`;
+
+const SYS_REEL=`You are a viral content strategist for WhoIsPaying.com. Generate a punchy short-form video script about political finance, war funding, or influence lobbying.
+
+Structure exactly:
+🎣 HOOK (3 seconds — one shocking line):
+[hook]
+
+📖 SCRIPT (35-45 seconds, punchy, conversational):
+[script]
+
+📲 CAPTION:
+[caption + 5 hashtags including #WhoIsPaying]
+
+Rules: factual but dramatic, money angle always, geopolitical tension welcome, impossible not to share.`;
+
+const SYS_INSIGHT=`Write ONE punchy intelligence brief (3-4 sentences) about global political money, war financing, or influence lobbying right now. Include a real specific figure. Use **bold** for names and numbers. Start with 'Here's what the data shows:' or 'The numbers tell a clear story:' Sound like an elite investigative journalist. No fluff.`;
+
+// ── TICKER DATA (geopolitical + classic) ──
+const TICKER_ITEMS=[
+  {t:"🚨 Ukraine war aid surpasses $200B — who profits from reconstruction contracts?",hot:true},
+  {t:"📊 UAE lobbying spend in Washington: $20M+ registered under FARA in 2023",hot:false},
+  {t:"🌍 Saudi Arabia outspent all Gulf states on US lobbying — $33M/year",hot:false},
+  {t:"🚢 Gwadar Port: $62B CPEC — Chinese state banks hold majority debt",hot:true},
+  {t:"💰 Gaza conflict: US defense contractors received $14B+ in emergency orders",hot:true},
+  {t:"🔍 Russia sanctions-busting: $1B+ traced through UAE shell companies [ESTIMATED]",hot:false},
+  {t:"📊 Meta spent $19.2M lobbying Congress in Q3 2024",hot:false},
+  {t:"💰 Dark money groups spent $1B+ in 2022 US midterms",hot:false},
+  {t:"🇪🇺 EU Transparency Register: 12,000+ registered lobbyists",hot:false},
+  {t:"🔍 FARA registrations up 23% since 2020 — Gulf states lead",hot:false},
+  {t:"⚠️ India vs Pakistan: $4B+ arms imports financed same Western banks [ESTIMATED]",hot:true},
+  {t:"🏦 KSA sovereign wealth fund quietly accumulating Western defense stakes",hot:false},
+];
+
+// ── CRISIS INTELLIGENCE DATA ──
+const CRISIS_DATA=[
+  {region:"GAZA / DEFENSE",q:"Which defense contractors funded the politicians who approved $14B+ in emergency Gaza-linked arms orders?",heat:"🔥🔥🔥 CRITICAL",count:"3,910 investigating",q_send:"Which US defense contractors benefited most from Gaza conflict emergency arms orders, and how much did they spend lobbying the politicians who approved those orders?"},
+  {region:"UKRAINE / RUSSIA",q:"Who is financing both sides of the Ukraine war — governments, banks, or private arms networks?",heat:"🔥🔥🔥 CRITICAL",count:"4,821 investigating",q_send:"Who is financing both sides of the Ukraine war and what reconstruction contracts, arms profits, and financial flows result from it?"},
+  {region:"GULF — UAE vs KSA",q:"UAE vs Saudi Arabia: the $100M+ lobbying war quietly reshaping Washington's entire Gulf policy",heat:"🔥🔥🔥 HIGH",count:"3,204 investigating",q_send:"Compare UAE and Saudi Arabia lobbying spend in Washington DC — who is registered under FARA, what policies are they influencing, and who is winning?"},
+  {region:"SOUTH ASIA — GWADAR",q:"Who is lobbying against Pakistan's Gwadar Port — and why does it threaten $500B+ in strategic interests?",heat:"🔥🔥 HIGH",count:"2,877 investigating",q_send:"Who is lobbying against Pakistan's Gwadar Port and the China-Pakistan Economic Corridor — which foreign governments, companies, and think tanks are involved and how are they funded?"},
+  {region:"RUSSIA / SANCTIONS",q:"How is Russia moving $billions through Gulf financial networks to evade Western sanctions?",heat:"🔥🔥 HIGH",count:"2,133 investigating",q_send:"How is Russia evading Western sanctions through UAE and Gulf financial intermediaries — what shell company networks, banks, and trade routes are being used?"},
+  {region:"INDIA / PAKISTAN",q:"Who finances the India-Pakistan arms race — and which Western banks and defense firms profit most?",heat:"🔥 ELEVATED",count:"1,654 investigating",q_send:"Who finances the arms race between India and Pakistan — which Western banks, defense companies, and nations profit from this ongoing conflict?"},
+];
+
+// ── TRENDING DATA ──
+const TRENDING=[
+  {cat:"UKRAINE",q:"Defense contractor profits from Ukraine war",count:"2,341 investigating",pct:96},
+  {cat:"GULF STATES",q:"UAE vs KSA Washington lobbying",count:"1,987 investigating",pct:88},
+  {cat:"SOUTH ASIA",q:"CPEC Gwadar Port lobbying networks",count:"1,654 investigating",pct:76},
+  {cat:"US POLITICS",q:"2024 Super PAC funding sources",count:"847 investigating",pct:62},
+  {cat:"DARK MONEY",q:"Shell company political donations",count:"521 investigating",pct:48},
+  {cat:"ASIA",q:"Chinese state bank global influence",count:"443 investigating",pct:40},
+];
+
+// ── VIRAL Q DATA ──
+const VIRAL=[
+  {n:"01",q:"Who is really paying for the war in Ukraine — governments or private interests?",hot:false,war:true,cnt:"4,821"},
+  {n:"02",q:"Which defense contractors funded politicians who approved Gaza arms deals?",hot:true,war:true,cnt:"3,910"},
+  {n:"03",q:"Why is the UAE spending $20M+ lobbying Washington — what do they want?",hot:false,war:false,cnt:"3,204"},
+  {n:"04",q:"Who lobbied against Pakistan's Gwadar Port and the China-Pakistan corridor?",hot:true,war:false,cnt:"2,877"},
+  {n:"05",q:"How does dark money hide billions from public view?",hot:true,war:false,cnt:"2,847"},
+  {n:"06",q:"How is Russia moving money through Gulf states to evade sanctions?",hot:true,war:true,cnt:"2,133"},
+  {n:"07",q:"Which billionaires have the most political power globally?",hot:false,war:false,cnt:"2,634"},
+  {n:"08",q:"Who financed the ads that swung Brexit?",hot:false,war:false,cnt:"2,211"},
+  {n:"09",q:"Who is financing the India-Pakistan arms race?",hot:false,war:true,cnt:"1,654"},
+  {n:"10",q:"What is FARA and which foreign governments use it most?",hot:false,war:false,cnt:"987"},
+];
+
+// ── CRISIS BAND PILLS ──
+const CRISIS_PILLS=[
+  {label:"🇵🇸 Gaza Arms Contracts",q:"Which US defense contractors benefited most from Gaza conflict emergency arms orders and how much did they spend lobbying the politicians who approved them?"},
+  {label:"🇺🇦 Ukraine War Finance",q:"Who is financing both sides of the Ukraine war and what reconstruction contracts and arms profits result from it?"},
+  {label:"🇦🇪 UAE vs 🇸🇦 KSA DC Lobby",q:"Compare UAE and Saudi Arabia lobbying spend in Washington DC — who is registered under FARA and what policies are they buying?"},
+  {label:"🇵🇰 Gwadar Port Lobby",q:"Who is lobbying against Pakistan's Gwadar Port and the China-Pakistan Economic Corridor and how are they funded?"},
+  {label:"🔒 Russia Sanctions Evasion",q:"How is Russia evading Western sanctions through UAE and Gulf financial intermediaries?"},
+];
+
+// ── PAGE NAVIGATION ──
+function openPage(id){
+  document.getElementById(id).style.display='block';
+  document.body.style.overflow='hidden';
+  document.getElementById(id).scrollTop=0;
+}
+function closePage(id){
+  document.getElementById(id).style.display='none';
+  document.body.style.overflow='';
+}
+
+// ── REASON CHIPS ──
+let selectedReason='General inquiry';
+document.addEventListener('click',e=>{
+  if(e.target.classList.contains('reason-chip')){
+    document.querySelectorAll('.reason-chip').forEach(c=>c.classList.remove('active'));
+    e.target.classList.add('active');
+    selectedReason=e.target.dataset.val;
+  }
+});
+
+// ── CONTACT FORM — obfuscated email assembly ──
+// Address is split and joined at runtime only — never appears in source as plain text
+function getContactAddress(){
+  const p=['whoispaying','.official','@','gmail','.com'];
+  return p.join('');
+}
+function submitContact(){
+  const name=document.getElementById('cName').value.trim();
+  const email=document.getElementById('cEmail').value.trim();
+  const subject=document.getElementById('cSubject').value.trim();
+  const msg=document.getElementById('cMsg').value.trim();
+  const fb=document.getElementById('contactFeedback');
+
+  if(!name||!email||!msg){
+    fb.style.display='block';
+    fb.style.background='rgba(217,85,85,0.08)';
+    fb.style.border='1px solid rgba(217,85,85,0.2)';
+    fb.style.color='var(--red)';
+    fb.textContent='Please fill in your name, email, and message.';
+    return;
+  }
+  const emailRx=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!emailRx.test(email)){
+    fb.style.display='block';
+    fb.style.background='rgba(217,85,85,0.08)';
+    fb.style.border='1px solid rgba(217,85,85,0.2)';
+    fb.style.color='var(--red)';
+    fb.textContent='Please enter a valid email address.';
+    return;
+  }
+
+  const to=getContactAddress();
+  const sub=encodeURIComponent(`[WhoIsPaying] ${selectedReason}${subject?' — '+subject:''}`);
+  const body=encodeURIComponent(`Name: ${name}\nEmail: ${email}\nType: ${selectedReason}\n\n${msg}`);
+  window.location.href=`mailto:${to}?subject=${sub}&body=${body}`;
+
+  fb.style.display='block';
+  fb.style.background='var(--vbg)';
+  fb.style.border='1px solid var(--vbr)';
+  fb.style.color='var(--vtx)';
+  fb.textContent='✓ Your mail client has opened. If nothing happened, please email us directly — address assembled on request to prevent scraping.';
+  document.getElementById('contactSendBtn').disabled=true;
+  document.getElementById('contactSendBtn').style.opacity='0.5';
+}
+
+// ── INIT TICKER ──
+(function(){
+  const inner=document.getElementById('tickerInner');
+  [...TICKER_ITEMS,...TICKER_ITEMS].forEach(item=>{
+    const el=document.createElement('span');
+    el.className='ticker-item'+(item.hot?' hot':'');
+    el.textContent=item.t;
+    el.onclick=()=>openChat(item.t.replace(/^[^A-Za-z$€£¥₹]+/,''));
+    inner.appendChild(el);
+  });
+})();
+
+// ── INIT CRISIS PILLS ──
+(function(){
+  const c=document.getElementById('crisisPills');
+  CRISIS_PILLS.forEach(p=>{
+    const el=document.createElement('div');
+    el.className='crisis-pill';
+    el.innerHTML=`<span class="c-label">CRISIS TRACKER</span>${p.label}`;
+    el.onclick=()=>openChat(p.q);
+    c.appendChild(el);
+  });
+})();
+
+// ── INIT CRISIS GRID ──
+(function(){
+  const g=document.getElementById('crisisGrid');
+  CRISIS_DATA.forEach(d=>{
+    const c=document.createElement('div'); c.className='crisis-card';
+    c.innerHTML=`<div class="cc-top"><span class="cc-region">${d.region}</span><span class="cc-heat">${d.heat}</span></div><div class="cc-q">${d.q}</div><div class="cc-meta"><div class="cc-meta-dot"></div>${d.count}</div>`;
+    c.onclick=()=>openChat(d.q_send);
+    g.appendChild(c);
+  });
+})();
+
+// ── INIT TRENDING ──
+(function(){
+  const g=document.getElementById('trendingGrid');
+  TRENDING.forEach(d=>{
+    const c=document.createElement('div'); c.className='trend-card';
+    c.innerHTML=`<div class="trend-top"><span class="trend-cat">${d.cat}</span><span class="trend-count">● ${d.count}</span></div><div class="trend-q">${d.q}</div><div class="trend-bar"><div class="trend-fill" style="width:${d.pct}%"></div></div>`;
+    c.onclick=()=>openChat(d.q); g.appendChild(c);
+  });
+})();
+
+// ── INIT VIRAL Q ──
+(function(){
+  const l=document.getElementById('viralList');
+  VIRAL.forEach(d=>{
+    const el=document.createElement('div'); el.className='vq-item';
+    el.innerHTML=`<span class="vq-num">${d.n}</span><span class="vq-text">${d.q}</span>${d.hot?'<span class="vq-hot">HOT</span>':''}${d.war?'<span class="vq-war">WAR $</span>':''}<span class="vq-cnt"><div class="vq-cnt-dot"></div>${d.cnt}</span><span class="vq-arrow">→</span>`;
+    el.onclick=()=>openChat(d.q); l.appendChild(el);
+  });
+})();
+
+// ── COUNTER ──
+function setCount(n){ document.getElementById('navCount').textContent=n.toLocaleString(); document.getElementById('ctaCount').textContent=n.toLocaleString(); }
+setInterval(()=>{ liveCount+=Math.floor(Math.random()*3)+1; setCount(liveCount); },3800);
+
+// ── API ──
+async function callClaude(sys,msgs,maxTok){
+  // Calls our server-side proxy at /api/chat — API key never exposed to browser
+  const r=await fetch(API_URL,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({system:sys,messages:msgs,max_tokens:maxTok})
+  });
+  const d=await r.json();
+  if(!r.ok) throw new Error(d.error?.message||'API error');
+  return d.content[0].text;
+}
+
+// ── HELPERS ──
+function renderMd(t){
+  return t
+    .replace(/\[VERIFIED\]/g,'<span class="tag-v">VERIFIED</span>')
+    .replace(/\[ESTIMATED\]/g,'<span class="tag-e">ESTIMATED</span>')
+    .replace(/\[UNKNOWN\]/g,'<span class="tag-u">UNKNOWN</span>')
+    .replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*([^*]+)\*/g,'<em>$1</em>')
+    .replace(/^[-•]\s+(.+)$/gm,'<div style="padding-left:10px;margin:3px 0">• $1</div>')
+    .replace(/\n\n/g,'</p><p style="margin-top:8px">')
+    .replace(/\n/g,'<br>');
+}
+function iHTML(labels){ return labels.map(l=>l==='VERIFIED'?'<span class="tag-v">VERIFIED</span>':l==='ESTIMATED'?'<span class="tag-e">ESTIMATED</span>':l==='UNKNOWN'?'<span class="tag-u">UNKNOWN</span>':'').join(' '); }
+function pField(t,f){ const m=t.match(new RegExp(f+':\\s*([^\\n]+)')); return m?m[1].trim():''; }
+function cleanBody(t){ return t.replace(/SUGGEST:[^\n]*/,'').replace(/INTEGRITY:[^\n]*/,'').replace(/ENTITIES:[^\n]*/,'').trim(); }
+function parseSuggest(t){ const v=pField(t,'SUGGEST'); return v?v.split('|').map(s=>s.trim()).filter(Boolean):[]; }
+function parseIntegrity(t){ const v=pField(t,'INTEGRITY'); return v?v.split(',').map(s=>s.trim()).filter(Boolean):[]; }
+function parseEntities(t){ const v=pField(t,'ENTITIES'); if(!v) return []; return v.split('|').map(e=>{const p=e.split(':');return{name:p[0]?.trim(),type:p[1]?.trim()||'org',amount:p[2]?.trim()||''};}).filter(e=>e.name); }
+
+// ── INSIGHT ──
+async function loadInsight(){
+  const el=document.getElementById('insightBody');
+  try { const t=await callClaude(SYS_INSIGHT,[{role:'user',content:'Give me a live intelligence brief about global political money, war financing, or influence lobbying.'}],280); el.innerHTML=renderMd(t); }
+  catch(e){ el.innerHTML='The numbers tell a clear story: Since February 2022, <strong>$200B+</strong> in international war aid has flowed into Ukraine — while US defense contractors Raytheon, Lockheed, and General Dynamics collectively saw stock prices rise <strong>40%+</strong>. The line between humanitarian support and profitable armament is increasingly invisible.'; }
+}
+
+// ── DEMO ──
+let demoFullText='';
+async function runDemo(){
+  const q=document.getElementById('demoQ').value.trim(); if(!q) return;
+  const btn=document.getElementById('demoBtn'); btn.disabled=true; btn.textContent='Analyzing…';
+  document.getElementById('demoResult').style.display='block';
+  const body=document.getElementById('demoBody');
+  body.innerHTML='<div class="typing-dots"><span></span><span></span><span></span></div>';
+  document.getElementById('demoIntegrity').style.display='none';
+  document.getElementById('demoDisclaimer').style.display='none';
+  document.getElementById('demoActions').style.display='none';
+  try {
+    const t=await callClaude(SYS_DEMO,[{role:'user',content:q}],420);
+    demoFullText=t;
+    body.innerHTML='<p>'+renderMd(cleanBody(t))+'</p>';
+    const labels=parseIntegrity(t);
+    if(labels.length){ const ir=document.getElementById('demoIntegrity'); ir.innerHTML='<span class="label-dim">INTEGRITY:</span> '+iHTML(labels); ir.style.display='flex'; }
+    document.getElementById('demoDisclaimer').style.display='block';
+    document.getElementById('demoActions').style.display='flex';
+    document.getElementById('demoCopyBtn').onclick=()=>navigator.clipboard.writeText(demoFullText);
+    document.getElementById('demoShareBtn').onclick=()=>shareBreaking(q);
+  } catch(e){ body.innerHTML='<span style="color:var(--red)">Please replace YOUR_KEY_HERE with your Anthropic API key to activate live analysis.</span>'; }
+  btn.disabled=false; btn.textContent='Investigate →';
+}
+
+function toggleSources(){ document.getElementById('sourceBody').classList.toggle('open'); }
+function shareBreaking(q){ const t=`🚨 INVESTIGATION:\n\n'${q}'\n\nThis is where public records stop — and influence becomes invisible.\n\nFull analysis: WhoIsPaying.com\n\n#FollowTheMoney #WhoIsPaying`; window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(t)); }
+
+// ── GRAPH ──
+const GN=[
+  {id:'election',label:'2024\nElection',type:'center',x:50,y:50,sz:52,info:'Total spending: $14.4B',src:'FEC.gov'},
+  {id:'pac1',label:'Preserve\nAmerica PAC',type:'dark',x:20,y:20,sz:36,info:'$320M raised [UNKNOWN]',src:'FEC.gov'},
+  {id:'dark1',label:'501(c)(4)\nGroups',type:'dark',x:50,y:84,sz:34,info:'$1B+ untraceable [UNKNOWN]',src:'ProPublica'},
+  {id:'pac2',label:'Future\nForward PAC',type:'org',x:80,y:20,sz:36,info:'$250M raised [VERIFIED]',src:'FEC.gov'},
+  {id:'corp1',label:'Koch\nNetwork',type:'org',x:14,y:55,sz:32,info:'$400M+ network [ESTIMATED]',src:'OpenSecrets'},
+  {id:'corp2',label:'Soros\nFund',type:'org',x:86,y:55,sz:32,info:'$200M+ donations [VERIFIED]',src:'OpenSecrets'},
+  {id:'p1',label:'Elon\nMusk',type:'person',x:24,y:80,sz:30,info:'$277M spend [VERIFIED]',src:'FEC.gov'},
+  {id:'p2',label:'Ken\nGriffin',type:'person',x:76,y:80,sz:28,info:'$100M+ donations [VERIFIED]',src:'OpenSecrets'},
+  {id:'p3',label:'Reid\nHoffman',type:'person',x:50,y:16,sz:26,info:'$70M contributions [VERIFIED]',src:'OpenSecrets'}
+];
+const GE=[
+  {f:'pac1',t:'election',lbl:'$320M',dark:true},{f:'pac2',t:'election',lbl:'$250M',dark:false},
+  {f:'corp1',t:'pac1',lbl:'Funds',dark:false},{f:'corp2',t:'pac2',lbl:'Funds',dark:false},
+  {f:'p1',t:'election',lbl:'$277M',dark:false},{f:'p2',t:'pac1',lbl:'$100M+',dark:false},
+  {f:'dark1',t:'election',lbl:'$1B+',dark:true},{f:'p3',t:'pac2',lbl:'$70M',dark:false}
+];
+function initGraph(){
+  const canvas=document.getElementById('graphCanvas'),svg=document.getElementById('graphSvg');
+  const W=canvas.offsetWidth,H=canvas.offsetHeight;
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  const pos={};
+  GN.forEach(n=>{ pos[n.id]={x:n.x/100*W,y:n.y/100*H}; });
+  GE.forEach(e=>{
+    const p1=pos[e.f],p2=pos[e.t]; if(!p1||!p2) return;
+    const ln=document.createElementNS('http://www.w3.org/2000/svg','line');
+    ln.setAttribute('x1',p1.x);ln.setAttribute('y1',p1.y);ln.setAttribute('x2',p2.x);ln.setAttribute('y2',p2.y);
+    ln.setAttribute('stroke',e.dark?'rgba(217,85,85,.3)':'rgba(255,255,255,.07)');
+    ln.setAttribute('stroke-width','1.5');
+    if(e.dark) ln.setAttribute('stroke-dasharray','4 3');
+    svg.appendChild(ln);
+    const mx=(p1.x+p2.x)/2,my=(p1.y+p2.y)/2;
+    const lb=document.createElementNS('http://www.w3.org/2000/svg','text');
+    lb.setAttribute('x',mx);lb.setAttribute('y',my-3);lb.setAttribute('text-anchor','middle');
+    lb.setAttribute('fill','rgba(255,255,255,.18)');lb.setAttribute('font-size','7.5');lb.setAttribute('font-family','Courier New,monospace');
+    lb.textContent=e.lbl; svg.appendChild(lb);
+  });
+  const tt=document.getElementById('graphTooltip');
+  GN.forEach(n=>{
+    const {x,y}=pos[n.id];
+    const div=document.createElement('div');
+    div.className=`g-node type-${n.type}`;
+    div.style.cssText=`left:${x}px;top:${y}px;width:${n.sz}px;height:${n.sz}px;font-size:${n.sz>42?8:7}px`;
+    div.innerHTML=n.label.replace('\n','<br>');
+    const show=()=>{ tt.style.display='block'; tt.querySelector('.tt-name').textContent=n.label.replace('\n',' '); tt.querySelector('.tt-info').textContent=n.info; tt.querySelector('.tt-src').textContent='Source: '+n.src; let tx=x+n.sz/2+8,ty=y-42; if(tx+170>W) tx=x-n.sz/2-175; if(ty<0) ty=y+n.sz/2+4; tt.style.left=tx+'px'; tt.style.top=ty+'px'; };
+    div.addEventListener('mouseenter',show);
+    div.addEventListener('mouseleave',()=>tt.style.display='none');
+    div.addEventListener('touchstart',e=>{e.preventDefault();show();},{passive:false});
+    div.addEventListener('touchend',()=>setTimeout(()=>tt.style.display='none',1400));
+    div.onclick=()=>openChat(`Tell me about ${n.label.replace('\n',' ')} and their role in political finance`);
+    canvas.appendChild(div);
+  });
+}
+
+// ── REEL ──
+async function genReel(){
+  const topic=document.getElementById('reelInput').value.trim(); if(!topic) return;
+  const btn=document.getElementById('reelBtn'); btn.disabled=true; btn.textContent='Generating…';
+  document.getElementById('reelResult').style.display='block';
+  const body=document.getElementById('reelBody');
+  body.innerHTML='<div class="typing-dots"><span></span><span></span><span></span></div>';
+  try {
+    const t=await callClaude(SYS_REEL,[{role:'user',content:`Create a viral reel script about: ${topic}`}],500);
+    body.textContent=t;
+    document.getElementById('reelCopyBtn').onclick=()=>navigator.clipboard.writeText(t);
+    document.getElementById('reelShareBtn').onclick=()=>{ const tw=`Just created a viral reel about '${topic}' using @WhoIsPaying 🎥💰\n#WhoIsPaying #FollowTheMoney`; window.open('https://twitter.com/intent/tweet?text='+encodeURIComponent(tw)); };
+  } catch(e){ body.textContent='Please add your API key to generate reel scripts.'; }
+  btn.disabled=false; btn.textContent='Generate →';
+}
+
+// ── CHAT ──
+const QUICK_QS=['Ukraine war finance','Gwadar Port lobby','UAE vs KSA lobbying','Gaza arms contracts'];
+const VIRAL_SUGGEST=VIRAL.slice(0,3).map(v=>v.q);
+
+function updateFreeBadge(){ const b=document.getElementById('freeBadge'); b.textContent=freeLeft>0?`${freeLeft} FREE TODAY`:'UPGRADE TO PRO'; b.style.color=freeLeft<=1?'var(--red)':'var(--gold)'; }
+function saveRecent(q){ try{ let a=JSON.parse(localStorage.getItem('wip_r')||'[]'); a=a.filter(i=>i!==q); a.unshift(q); localStorage.setItem('wip_r',JSON.stringify(a.slice(0,4))); }catch(e){} }
+
+function loadRecentBar(){
+  try {
+    const arr=JSON.parse(localStorage.getItem('wip_r')||'[]'); if(!arr.length) return;
+    const bar=document.createElement('div'); bar.className='recent-bar';
+    bar.innerHTML='<div class="recent-label">RECENT INVESTIGATIONS</div><div class="recent-chips" id="rChips"></div>';
+    arr.forEach(q=>{ const c=document.createElement('div'); c.className='recent-chip'; c.textContent=q; c.title=q; c.onclick=()=>fillAndSend(q); bar.querySelector('#rChips').appendChild(c); });
+    document.getElementById('chatMsgs').appendChild(bar);
+  }catch(e){}
+}
+
+function fillAndSend(q){ document.getElementById('chatInput').value=q; sendMsg(); }
+
+function openChat(q){
+  document.getElementById('chatEl').classList.add('open');
+  document.body.style.overflow='hidden';
+  if(!chatOpened){
+    chatOpened=true;
+    const cc=document.getElementById('quickChips');
+    QUICK_QS.forEach(q=>{ const el=document.createElement('div'); el.className='quick-chip'; el.textContent=q; el.onclick=()=>fillAndSend(q); cc.appendChild(el); });
+    loadRecentBar(); addWelcome();
+  }
+  if(q&&typeof q==='string') setTimeout(()=>fillAndSend(q),350);
+  else setTimeout(()=>document.getElementById('chatInput').focus(),200);
+}
+
+function closeChat(){ document.getElementById('chatEl').classList.remove('open'); document.body.style.overflow=''; }
+
+function addWelcome(){
+  const el=createAIBubble();
+  el.querySelector('.bubble').innerHTML=`
+    <strong>Welcome to WhoIsPaying — Investigative Mode.</strong><br><br>
+    Every answer follows: <strong>TL;DR → Key Players → Money Flow → Hidden Influence → What This Means</strong><br><br>
+    Claim labels: <span class="tag-v">VERIFIED</span>&nbsp;<span class="tag-e">ESTIMATED</span>&nbsp;<span class="tag-u">UNKNOWN</span><br><br>
+    We cover elections, war financing, port lobbying, arms contracts, sanctions evasion, and dark money — globally.<br><br>
+    <em style="font-size:10px;color:var(--t3)">AI-assisted. All analysis from publicly available data. Always verify with primary sources.</em><br><br>
+    <strong>Live crisis investigations:</strong>
+    <div class="ai-suggestions" style="margin-top:8px">
+      ${VIRAL_SUGGEST.map(q=>`<button class="sugg-btn" onclick="fillAndSend(this.dataset.q)" data-q="${q.replace(/"/g,'&quot;')}">↳ ${q}</button>`).join('')}
+    </div>`;
+  document.getElementById('chatMsgs').appendChild(el);
+  scrollMsgs();
+}
+
+function createAIBubble(){ const w=document.createElement('div'); w.className='msg-wrap msg-ai'; w.innerHTML='<div class="ai-label">WHOISPAYING AI</div><div class="bubble"></div>'; return w; }
+function scrollMsgs(){ const m=document.getElementById('chatMsgs'); requestAnimationFrame(()=>m.scrollTop=m.scrollHeight); }
+
+async function sendMsg(){
+  const input=document.getElementById('chatInput');
+  const q=input.value.trim();
+  if(!q||document.getElementById('sendBtn').disabled) return;
+  input.value=''; input.style.height='auto';
+  if(freeLeft<=0){ addProGateCard(); return; }
+
+  const uW=document.createElement('div'); uW.className='msg-wrap msg-user';
+  uW.innerHTML=`<div class="bubble">${q.replace(/</g,'&lt;')}</div>`;
+  document.getElementById('chatMsgs').appendChild(uW);
+  scrollMsgs();
+
+  document.getElementById('sendBtn').disabled=true;
+  input.disabled=true;
+
+  const aiW=createAIBubble();
+  aiW.querySelector('.bubble').innerHTML='<div class="typing-dots"><span></span><span></span><span></span></div>';
+  document.getElementById('chatMsgs').appendChild(aiW);
+  scrollMsgs();
+
+  chatHistory.push({role:'user',content:q});
+  saveRecent(q);
+  freeLeft--; updateFreeBadge();
+
+  try {
+    const txt=await callClaude(SYS_CHAT,chatHistory,950);
+    chatHistory.push({role:'assistant',content:txt});
+    const body=cleanBody(txt);
+    const labels=parseIntegrity(txt);
+    const suggests=parseSuggest(txt);
+    const entities=parseEntities(txt);
+    const qsAnswered=5-freeLeft;
+    const doBlur=qsAnswered>=3&&body.split('\n').length>=5;
+    const safeQ=q.replace(/`/g,"'").replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+
+    aiW.querySelector('.bubble').innerHTML=`
+      <div class="blur-wrap${doBlur?' blurred':''}">
+        <div class="answer-body"><p>${renderMd(body)}</p></div>
+      </div>
+      ${doBlur?`<div class="unlock-cta"><p>Unlock full analysis — unlimited queries, PDF export, entity graphs.</p><button class="btn-gold" onclick="addProGateCard()">Upgrade to Pro — $9/month</button></div>`:''}
+      ${labels.length?`<div class="ai-integrity"><span class="label-dim">INTEGRITY:</span>&nbsp;${iHTML(labels)}</div>`:''}
+      <div class="ai-disclaimer">AI-assisted. Verify critical claims with primary sources. <a href="#">View sources →</a></div>
+      <div class="ai-actions">
+        <button class="btn-ghost" onclick="navigator.clipboard.writeText(this.dataset.t)" data-t="${txt.replace(/"/g,'&quot;').replace(/'/g,'&#39;')}">Copy</button>
+        <button class="btn-ghost" onclick="shareBreaking('${safeQ}')">🚨 Share Breaking</button>
+        <button class="btn-ghost" onclick="document.getElementById('reelInput').value='${safeQ}';closeChat();setTimeout(()=>{document.getElementById('reelSection').scrollIntoView({behavior:'smooth'});setTimeout(genReel,400)},200)">Generate Reel ↗</button>
+      </div>
+      ${suggests.length?`<div class="ai-suggestions">${suggests.map(s=>`<button class="sugg-btn" onclick="fillAndSend(this.dataset.q)" data-q="${s.replace(/"/g,'&quot;').replace(/'/g,'&#39;')}">↳ ${s}</button>`).join('')}</div>`:''}
+      ${entities.length>1?buildMiniGraph(entities):''}`;
+  } catch(e){
+    aiW.querySelector('.bubble').innerHTML=`<span style="color:var(--red)">Investigation failed. Check your API key.<br><small style="color:var(--t3)">${e.message}</small></span>`;
+  }
+
+  document.getElementById('sendBtn').disabled=false;
+  input.disabled=false; input.focus(); scrollMsgs();
+}
+
+function buildMiniGraph(entities){
+  const nodes=entities.slice(0,6),n=nodes.length;
+  const cx=50,cy=50,rx=38,ry=28;
+  let svgL='',nodD='';
+  nodes.forEach((e,i)=>{
+    const angle=(i/n)*Math.PI*2-Math.PI/2;
+    const nx=Math.round(cx+rx*Math.cos(angle)),ny=Math.round(cy+ry*Math.sin(angle));
+    const isDark=e.type==='dark';
+    svgL+=`<line x1="50%" y1="50%" x2="${nx}%" y2="${ny}%" stroke="${isDark?'rgba(217,85,85,.3)':'rgba(255,255,255,.1)'}" stroke-width="1" ${isDark?'stroke-dasharray="3 2"':''}/>`;
+    svgL+=`<text x="${nx}%" y="${Math.min(ny+13,95)}%" text-anchor="middle" fill="rgba(255,255,255,.2)" font-size="6.5" font-family="Courier New">${e.amount}</text>`;
+    const clr={person:'rgba(201,168,76,.15)',org:'rgba(74,143,212,.15)',dark:'rgba(217,85,85,.12)',money:'rgba(61,184,120,.15)'};
+    const bdr={person:'rgba(201,168,76,.4)',org:'rgba(74,143,212,.4)',dark:'rgba(217,85,85,.3)',money:'rgba(61,184,120,.4)'};
+    nodD+=`<div class="m-node" style="left:${nx}%;top:${ny}%;width:30px;height:30px;background:${clr[e.type]||clr.org};border:1px solid ${bdr[e.type]||bdr.org};color:var(--t2);font-size:6px" onclick="fillAndSend('Tell me more about ${e.name.replace(/'/g,"\\'")} in political finance')" title="${e.name}">${e.name.split(' ').slice(0,2).join('<br>')}</div>`;
+  });
+  return `<div class="mini-graph"><div class="mini-graph-header">ENTITY GRAPH</div><div class="mini-graph-canvas"><svg>${svgL}</svg><div class="m-node type-center" style="left:50%;top:50%;width:38px;height:38px;font-size:7px">FOCUS</div>${nodD}</div></div>`;
+}
+
+function addProGateCard(){
+  const w=document.createElement('div'); w.className='msg-wrap msg-ai';
+  w.innerHTML=`<div class="ai-label">WHOISPAYING AI</div><div class="bubble" style="padding:0"><div class="pro-gate-card"><h3>${freeLeft<=0?"You've reached your daily limit":"Unlock the complete analysis"}</h3><p>Go deeper on war finance, port lobbying, and geopolitical money flows. Pro gives you unlimited queries, full reports, and API access.</p><div class="perk-chips"><span class="perk-chip">Unlimited</span><span class="perk-chip">Full reports</span><span class="perk-chip">PDF export</span><span class="perk-chip">API access</span><span class="perk-chip">Crisis alerts</span></div><button class="btn-gold" style="width:100%;padding:12px;font-size:13px" onclick="alert('Pro signup coming soon!')">Upgrade to Pro — $9/month</button></div></div>`;
+  document.getElementById('chatMsgs').appendChild(w);
+  scrollMsgs();
+}
+
+// ── INPUT ──
+document.addEventListener('DOMContentLoaded',()=>{
+  const ta=document.getElementById('chatInput');
+  ta.addEventListener('input',()=>{ ta.style.height='auto'; ta.style.height=Math.min(ta.scrollHeight,120)+'px'; });
+  ta.addEventListener('keydown',e=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); sendMsg(); } });
+  setTimeout(initGraph,120);
+  loadInsight();
+  updateFreeBadge();
+});
+</script>
+</body>
+</html>
