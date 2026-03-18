@@ -1008,14 +1008,18 @@ setInterval(()=>{ liveCount+=Math.floor(Math.random()*3)+1; setCount(liveCount);
 
 // ── API ──
 async function callClaude(sys,msgs,maxTok){
-  // Calls our server-side proxy at /api/chat — API key never exposed to browser
   const r=await fetch(API_URL,{
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({system:sys,messages:msgs,max_tokens:maxTok})
   });
   const d=await r.json();
-  if(!r.ok) throw new Error(d.error?.message||'API error');
+  if(!r.ok){
+    const msg=d.error||'API error';
+    const err=new Error(typeof msg==='string'?msg:JSON.stringify(msg));
+    err.status=r.status;
+    throw err;
+  }
   return d.content[0].text;
 }
 
@@ -1086,7 +1090,14 @@ async function runDemo(){
     document.getElementById('demoActions').style.display='flex';
     document.getElementById('demoCopyBtn').onclick=()=>navigator.clipboard.writeText(demoFullText);
     document.getElementById('demoShareBtn').onclick=()=>shareBreaking(q);
-  } catch(e){ body.innerHTML='<span style="color:var(--red)">Please replace YOUR_KEY_HERE with your Anthropic API key to activate live analysis.</span>'; }
+  } catch(e){
+    const is429=e.status===429||e.message.includes('429')||e.message.includes('Too Many');
+    body.innerHTML=`<span style="color:${is429?'var(--orange)':'var(--red)'}">
+      ${is429
+        ? '⏳ Too many requests — please wait 60 seconds and try again.'
+        : 'Analysis unavailable. Please try again in a moment.'}
+    </span>`;
+  }
   btn.disabled=false; btn.textContent='Investigate →';
 }
 
@@ -1267,20 +1278,19 @@ async function sendMsg(){
       ${suggests.length?`<div class="ai-suggestions">${suggests.map(s=>`<button class="sugg-btn" onclick="fillAndSend(this.dataset.q)" data-q="${s.replace(/"/g,'&quot;').replace(/'/g,'&#39;')}">↳ ${s}</button>`).join('')}</div>`:''}
       ${entities.length>1?buildMiniGraph(entities):''}`;
   } catch(e){
-    const is429=e.message.includes('429')||e.message.includes('Too Many')||e.message.includes('Rate limit');
+    const is429=e.status===429||e.message.includes('429')||e.message.includes('Too Many')||e.message.includes('Rate limit');
     if(is429){
       let secs=60;
       const countId='cd_'+Date.now();
-      aiW.querySelector('.bubble').innerHTML=`<span style="color:var(--orange)">⏳ Too many requests — please wait <strong id="${countId}">${secs}s</strong> and your question will resend automatically.</span>`;
+      aiW.querySelector('.bubble').innerHTML=`<span style="color:var(--orange)">⏳ Too many requests — retrying automatically in <strong id="${countId}">60s</strong></span>`;
       const iv=setInterval(()=>{
         secs--;
         const el=document.getElementById(countId);
         if(el) el.textContent=secs+'s';
         if(secs<=0){
           clearInterval(iv);
-          // Auto retry
-          chatHistory.pop(); // remove failed user message
-          freeLeft++; // restore count
+          chatHistory.pop();
+          freeLeft++;
           updateFreeBadge();
           aiW.remove();
           document.getElementById('chatInput').value=q;
