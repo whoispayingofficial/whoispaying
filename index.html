@@ -1268,19 +1268,23 @@ async function sendMsg(){
   freeLeft--; updateFreeBadge();
 
   try {
-    const txt=await callClaude(SYS_CHAT,chatHistory,1800);
+    const txt=await callClaude(SYS_CHAT,chatHistory,2500);
     chatHistory.push({role:'assistant',content:txt});
     const body=cleanBody(txt);
     const labels=parseIntegrity(txt);
     const suggests=parseSuggest(txt);
     const entities=parseEntities(txt);
     const qsAnswered=5-freeLeft;
-    const doBlur=qsAnswered>=4; // blur only after Q4+ — never based on answer length
+    const doBlur=qsAnswered>=4;
+    // Detect if answer was cut mid-sentence by token limit
+    const lastChar=body.trim().slice(-1);
+    const wasTruncated=!['.','"','!','?',':','*'].includes(lastChar)&&body.length>200;
     const safeQ=q.replace(/`/g,"'").replace(/\\/g,'\\\\').replace(/'/g,"\\'");
 
     aiW.querySelector('.bubble').innerHTML=`
       <div class="blur-wrap${doBlur?' blurred':''}">
         <div class="answer-body"><p>${renderMd(body)}</p></div>
+        ${wasTruncated&&!doBlur?`<div style="margin-top:8px;padding:8px 12px;background:rgba(224,123,57,0.08);border:1px solid rgba(224,123,57,0.2);border-radius:6px;font-size:11px;color:var(--orange)">⚠️ This response may have been cut short due to length. Try asking a more specific question for a complete answer.</div>`:''}
         ${doBlur?`<div style="position:absolute;bottom:105px;left:0;right:0;text-align:center;z-index:3;pointer-events:none">
           <span style="font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--t3);background:var(--bg3);padding:3px 10px;border-radius:10px;border:1px solid var(--b1)">▼ REPORT CONTINUES BELOW ▼</span>
         </div>`:''}
