@@ -47,6 +47,33 @@ button{cursor:pointer;font-family:inherit}
 @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
+/* ── PROGRESSIVE REVEAL ── */
+.progressive-reveal{display:flex;flex-direction:column;gap:6px}
+.pr-section{border:1px solid var(--b1);border-radius:7px;overflow:hidden;transition:border-color .2s}
+.pr-section.pr-open{border-color:var(--b2)}
+.pr-header{display:flex;justify-content:space-between;align-items:center;padding:10px 13px;cursor:pointer;user-select:none;transition:background .2s}
+.pr-header:hover{background:var(--bg4)}
+.pr-title{font-family:'Courier New',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+.pr-toggle{font-family:'Courier New',monospace;font-size:8px;letter-spacing:1px;color:var(--t3);transition:color .2s}
+.pr-header:hover .pr-toggle{color:var(--t2)}
+.pr-content{padding:12px 13px;font-size:13px;color:var(--t2);line-height:1.8}
+.pr-section:not(.pr-open) .pr-content{display:none}
+/* Key insight callout */
+.key-insight{background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.2);border-radius:7px;padding:11px 14px;margin:10px 0;font-size:13px;color:var(--t1);line-height:1.7}
+.key-insight strong{color:var(--gold)}
+/* Shareable insight */
+.share-insight{background:rgba(217,85,85,0.07);border:1px solid rgba(217,85,85,0.2);border-radius:7px;padding:12px 14px;margin:10px 0}
+.share-insight-label{font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--red);margin-bottom:7px}
+.share-insight{font-size:13px;color:var(--t1);line-height:1.7}
+.share-insight-btn{margin-top:10px;background:transparent;border:1px solid rgba(217,85,85,0.3);color:var(--red);font-family:'Courier New',monospace;font-size:8px;letter-spacing:1px;padding:4px 10px;border-radius:4px;cursor:pointer;transition:.2s;display:block}
+.share-insight-btn:hover{background:rgba(217,85,85,0.1)}
+/* Depth preview before blur */
+.depth-preview{background:linear-gradient(180deg,transparent,var(--bg3));padding:16px 14px 12px;margin-top:-20px;position:relative;z-index:2}
+.depth-preview-label{font-family:'Courier New',monospace;font-size:8px;letter-spacing:2px;color:var(--t3);margin-bottom:8px;text-transform:uppercase}
+.depth-preview-items{display:flex;flex-direction:column;gap:4px}
+.depth-preview-item{font-size:11px;color:var(--t3);display:flex;align-items:center;gap:6px}
+.depth-preview-item::before{content:'→';color:var(--gold);font-size:10px;flex-shrink:0}
+
 /* ── PAGES ── */
 .reason-chip{background:var(--bg4);border:1px solid var(--b2);color:var(--t2);font-size:11px;padding:5px 11px;border-radius:14px;cursor:pointer;transition:.2s;font-family:inherit}
 .reason-chip:hover{border-color:var(--b3);color:var(--t1)}
@@ -723,50 +750,72 @@ const API_URL='/api/chat';
 let freeLeft=5, chatHistory=[], chatOpened=false, liveCount=1284;
 
 // ── SYSTEM PROMPTS ──
-const SYS_CHAT=`You are an elite investigative financial analyst for WhoIsPaying.com — the world's most trusted political money intelligence platform. You write like a cross between a Bloomberg terminal analyst and a ProPublica investigative journalist.
+const SYS_CHAT=`You are the lead investigative analyst at WhoIsPaying.com — the world's most trusted political money intelligence platform.
 
-MISSION: Expose who is influencing power through money — globally. Wars, elections, ports, pipelines, sanctions evasion, dark money, arms lobbying, geopolitical rivalries. No topic is too complex. No network too hidden.
+Your writing style: Bloomberg terminal precision × ProPublica narrative depth × intelligence briefing clarity.
+
+MISSION: Expose hidden financial influence. Follow money across entities, jurisdictions, and intermediaries until the full picture is revealed. No topic is too complex. No network too hidden.
 
 EDITORIAL STANCE: Strictly neutral. Never glorify, condone, dismiss or take sides on any conflict. Always follow the money — not ideology. Frame all war-related content as financial accountability journalism.
 
-DEPTH RULES — THIS IS CRITICAL:
-- Default to DEEP, detailed answers — 15 to 25 lines minimum for complex topics
-- Never oversimplify important financial relationships
-- If a topic has layers, peel them all back — don't stop at the surface
-- Use specific figures, named entities, and real dollar amounts wherever possible
-- Complex topics deserve complex answers — don't compress what needs space
-- Make the reader feel they are getting intelligence unavailable anywhere else
+CRITICAL BEHAVIOR RULES:
 
-DATA INTEGRITY RULES:
-- NEVER fabricate specific figures, names, or transactions
-- Label every factual claim: [VERIFIED] = confirmed public record | [ESTIMATED] = modeled/approximate | [UNKNOWN] = dark money/unconfirmed/hidden
-- If data unavailable say: 'No verified public record confirms this'
-- Only cite real organizations: FEC, OpenSecrets, ProPublica, EU Transparency Register, FARA, SIPRI, USAID, World Bank, IMF
+1. DEPTH-FIRST THINKING
+Do NOT stop at surface-level relationships.
+For every claim, ask internally:
+→ "Where did this money come from before this?"
+→ "Where does it go next?"
+→ "Who benefits indirectly?"
+Continue expanding until no additional meaningful layer exists.
+If the answer feels obvious — expand further.
 
-MANDATORY RESPONSE STRUCTURE — go deep in every section:
+2. INVESTIGATIVE FLOW — MANDATORY STRUCTURE
 
-**TL;DR:** (2-3 punchy lines — the verdict that makes them want to read on)
+**TL;DR:** (2-3 sharp, compelling lines — the verdict that makes them need to read on)
 
 **Key Players:**
-- Name/org — role — specific amount — how they benefit [LABEL]
-- Go beyond the obvious names — include intermediaries, shell entities, lobbying firms
+- Real named entities — roles, amounts, how they benefit [LABEL]
+- Go beyond obvious names — include intermediaries, shell entities, lobbying firms
+- At least one non-obvious player most people wouldn't know
 
 **Money Flow:**
-Detailed breakdown of how funds moved — channels, intermediaries, jurisdictions, timelines [LABEL]
-Use sub-points if needed. Show the full chain, not just start and end.
+Trace the FULL chain: source → intermediaries → destination
+Include: shell companies, lobbying firms, PACs, contracts, aid channels, jurisdictions
+Mark gaps explicitly as [UNKNOWN]. Show the complete chain, not just start and end.
+This is your core section — go deepest here.
 
-**Hidden Influence:**
-This is where you go deepest. Dark money, shell entities, sanctions evasion, revolving door connections [UNKNOWN]
-Use: 'Here's the part most people don't see:' to introduce this section
+**Hidden Layers:**
+Start with: "Here's where it gets less visible:"
+Expose: indirect influence, regulatory capture, revolving door connections,
+strategic beneficiaries, sanctions evasion routes, dark money pathways.
+This must contain at least ONE insight most people would never find.
+
+💡 KEY INSIGHT: (pull out the single most explosive non-obvious finding as a standalone callout)
 
 **What This Means:**
-3-4 sentences on real-world geopolitical, financial and democratic impact.
-Connect the dots — what does this money flow actually change in the world?
+3-4 sentences on real-world power, geopolitical and democratic impact.
+Connect all dots — what does this money flow actually change?
 
-**Key Sources:** 3-5 real named sources with context on what each confirms
+🚨 SHAREABLE INSIGHT: (one punchy 2-line revelation formatted for sharing:
+"Most people think [X]. But the money actually flows through [Y] → [Z].")
+
+**Key Sources:** 3-5 real named institutions with what each confirms
+
+3. DATA INTEGRITY
+[VERIFIED] — confirmed public record
+[ESTIMATED] — inferred but reasonable
+[UNKNOWN] — not publicly traceable
+Never fabricate specific figures, names or transactions.
+
+4. OUTPUT LENGTH
+Write until the money flow is fully explored and hidden influence clearly exposed.
+NOT until you hit a line count. Depth is the goal.
+
+5. TONE
+Calm. Precise. Analytical. Never dramatic, political or emotional.
 
 After your full answer on new lines:
-SUGGEST: question1|question2|question3
+SUGGEST: specific_q1|specific_q2|specific_q3
 INTEGRITY: VERIFIED,ESTIMATED,UNKNOWN
 ENTITIES: name1:type1:amount1|name2:type2:amount2
 (types: person/org/money/dark — max 6 real named entities)`;
@@ -1044,11 +1093,113 @@ function renderMd(t){
     .replace(/\[VERIFIED\]/g,'<span class="tag-v">VERIFIED</span>')
     .replace(/\[ESTIMATED\]/g,'<span class="tag-e">ESTIMATED</span>')
     .replace(/\[UNKNOWN\]/g,'<span class="tag-u">UNKNOWN</span>')
+    .replace(/💡 KEY INSIGHT:(.*?)(?=\n\n|\n[*🚨]|$)/gs,'<div class="key-insight">💡 <strong>KEY INSIGHT</strong>$1</div>')
+    .replace(/🚨 SHAREABLE INSIGHT:(.*?)(?=\n\n|\n[*]|$)/gs,'<div class="share-insight"><div class="share-insight-label">🚨 SHAREABLE INSIGHT</div>$1<button class="share-insight-btn" onclick="copyShareInsight(this)">Copy to share</button></div>')
     .replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>')
     .replace(/\*([^*]+)\*/g,'<em>$1</em>')
-    .replace(/^[-•]\s+(.+)$/gm,'<div style="padding-left:10px;margin:3px 0">• $1</div>')
-    .replace(/\n\n/g,'</p><p style="margin-top:8px">')
+    .replace(/^[-•]\s+(.+)$/gm,'<div style="padding-left:10px;margin:4px 0;color:var(--t2)">• $1</div>')
+    .replace(/\n\n/g,'</p><p style="margin-top:10px">')
     .replace(/\n/g,'<br>');
+}
+
+function copyShareInsight(btn){
+  const text=btn.parentElement.querySelector('.share-insight-label').nextSibling?.textContent||btn.parentElement.innerText;
+  navigator.clipboard.writeText(text.replace('Copy to share','').trim());
+  btn.textContent='Copied ✓';
+  setTimeout(()=>btn.textContent='Copy to share',2000);
+}
+
+// Parse sections from AI response for progressive reveal
+function parseSections(body){
+  const sections=[];
+  const sectionHeaders=['Key Players','Money Flow','Hidden Layers','What This Means','Key Sources'];
+
+  // Extract TL;DR
+  const tldrIdx=body.indexOf('**TL;DR:');
+  const nextIdx=body.search(/\*\*Key Players|\*\*Money Flow/);
+  if(tldrIdx!==-1){
+    const tldrContent=nextIdx!==-1?body.slice(tldrIdx+8,nextIdx):body.slice(tldrIdx+8);
+    sections.push({title:'TL;DR',content:tldrContent.replace(/\*\*/g,'').trim(),alwaysOpen:true});
+  }
+
+  // Extract each named section
+  sectionHeaders.forEach((h,i)=>{
+    const start=body.indexOf(`**${h}`);
+    if(start===-1) return;
+    const afterHeader=body.indexOf('\n',start)+1;
+    // Find next section start
+    let end=body.length;
+    sectionHeaders.forEach((h2,j)=>{
+      if(j<=i) return;
+      const idx=body.indexOf(`**${h2}`,start+1);
+      if(idx!==-1&&idx<end) end=idx;
+    });
+    // Stop at emoji callouts too
+    ['💡','🚨'].forEach(e=>{
+      const idx=body.indexOf(e,start+1);
+      if(idx!==-1&&idx<end) end=idx;
+    });
+    const content=body.slice(afterHeader,end).trim();
+    if(content) sections.push({title:h,content,alwaysOpen:false});
+  });
+
+  // Extract 💡 KEY INSIGHT
+  const kiIdx=body.indexOf('💡 KEY INSIGHT:');
+  if(kiIdx!==-1){
+    const kiEnd=body.indexOf('🚨',kiIdx);
+    const kiContent=kiEnd!==-1?body.slice(kiIdx,kiEnd):body.slice(kiIdx,body.indexOf('\n\n',kiIdx)+1);
+    if(kiContent.trim()) sections.push({title:'💡 Key Insight',content:kiContent.trim(),alwaysOpen:true,highlight:true});
+  }
+
+  // Extract 🚨 SHAREABLE INSIGHT
+  const siIdx=body.indexOf('🚨 SHAREABLE INSIGHT:');
+  if(siIdx!==-1){
+    const siEnd=body.indexOf('**Key Sources',siIdx);
+    const siContent=siEnd!==-1?body.slice(siIdx,siEnd):body.slice(siIdx);
+    if(siContent.trim()) sections.push({title:'🚨 Shareable',content:siContent.replace('🚨 SHAREABLE INSIGHT:','').trim(),alwaysOpen:true,share:true});
+  }
+
+  if(sections.length<=1) return null;
+  return sections;
+}
+
+function buildProgressiveReveal(body, doBlur){
+  const sections=parseSections(body);
+  if(!sections) return `<div class="answer-body"><p>${renderMd(body)}</p></div>`;
+
+  let html='<div class="progressive-reveal">';
+  sections.forEach((s,i)=>{
+    const isOpen=s.alwaysOpen||(i===0);
+    const isBlurred=doBlur&&i>=2;
+    if(isBlurred) return; // handled by blur overlay
+
+    if(s.alwaysOpen){
+      html+=`<div class="pr-section pr-open">
+        <div class="pr-content">${renderMd(s.content)}</div>
+      </div>`;
+    } else {
+      html+=`<div class="pr-section" id="prs_${i}">
+        <div class="pr-header" onclick="toggleSection('prs_${i}')">
+          <span class="pr-title">${s.title}</span>
+          <span class="pr-toggle">↓ Expand</span>
+        </div>
+        <div class="pr-content" style="display:none">${renderMd(s.content)}</div>
+      </div>`;
+    }
+  });
+  html+='</div>';
+  return html;
+}
+
+function toggleSection(id){
+  const sec=document.getElementById(id);
+  if(!sec) return;
+  const content=sec.querySelector('.pr-content');
+  const toggle=sec.querySelector('.pr-toggle');
+  const isOpen=content.style.display!=='none';
+  content.style.display=isOpen?'none':'block';
+  toggle.textContent=isOpen?'↓ Expand':'↑ Collapse';
+  sec.classList.toggle('pr-open',!isOpen);
 }
 function iHTML(labels){ return labels.map(l=>l==='VERIFIED'?'<span class="tag-v">VERIFIED</span>':l==='ESTIMATED'?'<span class="tag-e">ESTIMATED</span>':l==='UNKNOWN'?'<span class="tag-u">UNKNOWN</span>':'').join(' '); }
 function pField(t,f){ const m=t.match(new RegExp(f+':\\s*([^\\n]+)')); return m?m[1].trim():''; }
