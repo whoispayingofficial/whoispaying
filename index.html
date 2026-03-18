@@ -342,11 +342,11 @@ button{cursor:pointer;font-family:inherit}
   </div>
 </div>
 
-<!-- AD SLOT 1 — LEADERBOARD (Below Crisis Monitor) -->
-<div style="max-width:760px;margin:0 auto 24px;padding:0 16px;text-align:center">
-  <div style="font-family:'Courier New',monospace;font-size:7px;letter-spacing:1px;color:var(--t4);margin-bottom:4px;text-transform:uppercase">Advertisement</div>
+<!-- AD SLOT 1 — Below Crisis Monitor -->
+<div id="adSlot1" style="max-width:760px;margin:0 auto 16px;padding:0 16px;text-align:center;display:none">
+  <div style="font-family:'Courier New',monospace;font-size:7px;letter-spacing:1px;color:var(--t4);margin-bottom:3px;text-transform:uppercase">Advertisement</div>
   <ins class="adsbygoogle"
-       style="display:block"
+       style="display:block;min-height:50px"
        data-ad-client="ca-pub-3065529797261346"
        data-ad-slot="auto"
        data-ad-format="auto"
@@ -460,11 +460,11 @@ button{cursor:pointer;font-family:inherit}
   <div class="trending-grid" id="trendingGrid"></div>
 </div>
 
-<!-- AD SLOT 2 — LEADERBOARD (Between Trending & Viral Q) -->
-<div style="max-width:760px;margin:0 auto 24px;padding:0 16px;text-align:center">
-  <div style="font-family:'Courier New',monospace;font-size:7px;letter-spacing:1px;color:var(--t4);margin-bottom:4px;text-transform:uppercase">Advertisement</div>
+<!-- AD SLOT 2 — Between Trending & Viral Q -->
+<div id="adSlot2" style="max-width:760px;margin:0 auto 16px;padding:0 16px;text-align:center;display:none">
+  <div style="font-family:'Courier New',monospace;font-size:7px;letter-spacing:1px;color:var(--t4);margin-bottom:3px;text-transform:uppercase">Advertisement</div>
   <ins class="adsbygoogle"
-       style="display:block"
+       style="display:block;min-height:50px"
        data-ad-client="ca-pub-3065529797261346"
        data-ad-slot="auto"
        data-ad-format="auto"
@@ -695,11 +695,11 @@ button{cursor:pointer;font-family:inherit}
   </nav>
   <div id="chatMsgs"></div>
 
-  <!-- AD SLOT 3 — MOBILE BANNER (Chat overlay, above input) -->
-  <div style="padding:6px 16px;background:rgba(7,7,12,.95);border-top:1px solid var(--b1);text-align:center;flex-shrink:0">
-    <div style="font-family:'Courier New',monospace;font-size:7px;letter-spacing:1px;color:var(--t4);margin-bottom:3px;text-transform:uppercase">Advertisement</div>
+  <!-- AD SLOT 3 — Chat overlay, above input -->
+  <div id="adSlot3" style="padding:4px 16px;background:rgba(7,7,12,.95);border-top:1px solid var(--b1);text-align:center;flex-shrink:0;display:none">
+    <div style="font-family:'Courier New',monospace;font-size:7px;letter-spacing:1px;color:var(--t4);margin-bottom:2px;text-transform:uppercase">Advertisement</div>
     <ins class="adsbygoogle"
-         style="display:block"
+         style="display:block;min-height:50px"
          data-ad-client="ca-pub-3065529797261346"
          data-ad-slot="auto"
          data-ad-format="auto"
@@ -912,6 +912,40 @@ function submitContact(){
   document.getElementById('contactSendBtn').disabled=true;
   document.getElementById('contactSendBtn').style.opacity='0.5';
 }
+
+// ── ADSENSE — show slots only when filled, never show blank ──
+(function(){
+  // Wait for adsbygoogle to load then observe each slot
+  const observe = () => {
+    ['adSlot1','adSlot2','adSlot3'].forEach(id => {
+      const wrap = document.getElementById(id);
+      if (!wrap) return;
+      const ins = wrap.querySelector('ins.adsbygoogle');
+      if (!ins) return;
+      // MutationObserver watches for Google injecting an iframe into the ins tag
+      const mo = new MutationObserver(() => {
+        const filled = ins.getAttribute('data-ad-status') === 'filled' ||
+                       ins.querySelector('iframe') !== null;
+        wrap.style.display = filled ? 'block' : 'none';
+        // For slot 3 (chat) use flex-shrink:0 display
+        if (id === 'adSlot3') wrap.style.display = filled ? 'block' : 'none';
+      });
+      mo.observe(ins, { attributes: true, childList: true, subtree: true });
+      // Also check after 3s in case mutation fires before we attach
+      setTimeout(() => {
+        const filled = ins.getAttribute('data-ad-status') === 'filled' ||
+                       ins.querySelector('iframe') !== null;
+        wrap.style.display = filled ? 'block' : 'none';
+      }, 3000);
+    });
+  };
+  // Run after DOM ready + short delay for adsbygoogle to initialise
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => setTimeout(observe, 800));
+  } else {
+    setTimeout(observe, 800);
+  }
+})();
 
 // ── INIT TICKER ──
 (function(){
