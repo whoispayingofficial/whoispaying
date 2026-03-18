@@ -21,7 +21,7 @@ export default async function handler(req, res) {
   }
 
   const provider = process.env.PROVIDER || 'gemini';
-  const maxTokens = Math.min(body.max_tokens || 950, 1000);
+  const maxTokens = Math.min(body.max_tokens || 1800, 2000);
 
   // ── GOOGLE GEMINI ─────────────────────────────────────────────────
   if (provider === 'gemini') {
